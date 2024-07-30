@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bf62bdx3f1vrw"
+path="res://.godot/imported/unit_ills_205000405.png-e9144d218dd97156f31a9327e4957645.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://imgs/characters/faris/raw_file/Faris (5)/unit_ills_205000405.png"
+dest_files=["res://.godot/imported/unit_ills_205000405.png-e9144d218dd97156f31a9327e4957645.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
