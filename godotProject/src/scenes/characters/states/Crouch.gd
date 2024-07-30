@@ -2,17 +2,17 @@ extends State
 
 ## --- Vars ---
 @onready var player: Player = owner
-var blocking_direction = "low"
+var blocking_direction = ["low"]
 
 func _ready():
 	enum_name = CharacterStates.VERTICAL_STATES.CROUCH
 
-func enter():
+func enter(_args):
 	player.play_animation("crouch_startup", 2)
 
 func update(_delta):
 	if Input.is_action_just_released("crouch") or Input.is_action_pressed("jump"):
-		state_exited_to.emit(CharacterStates.VERTICAL_STATES.NEUTRAL)
+		go_to_state(CharacterStates.VERTICAL_STATES.NEUTRAL)
 
 func exit():
 	player.reset_animation_priority()

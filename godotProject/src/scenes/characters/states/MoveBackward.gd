@@ -8,37 +8,40 @@ extends State
 func _ready():
 	enum_name = CharacterStates.HORIZONTAL_STATES.MOVEBACKWARD
 
-func enter():
+func enter(_args):
 	player.default_frame_collider.enable()
 
 func update(_delta):
 	
 	player.play_animation("move_backward", 1)
 	
-	# Check dash
-	if Input.is_action_just_pressed("dash"):
-		state_exited_to.emit(CharacterStates.HORIZONTAL_STATES.BACKDASH)
+	# Ignore other inputs if crouching or jumping
+	if vertical_state_machine.curr_state.enum_name in [CharacterStates.VERTICAL_STATES.CROUCH,\
+	CharacterStates.VERTICAL_STATES.JUMP]:
 		return
 	
-	# Ignore other inputs if crouching
-	if vertical_state_machine.curr_state.enum_name == CharacterStates.VERTICAL_STATES.CROUCH:
+	# Check dash
+	if Input.is_action_just_pressed("dash"):
+		go_to_state(CharacterStates.HORIZONTAL_STATES.BACKDASH)
 		return
+	
 	
 	# Check move foward
 	var direction = Input.get_axis("left", "right")	
 	if direction != 0 and direction == player.get_facing_direction():
-		state_exited_to.emit(CharacterStates.HORIZONTAL_STATES.MOVEFOWARD)
+		go_to_state(CharacterStates.HORIZONTAL_STATES.MOVEFOWARD)
 		return
 	
 	player.velocity.x = -player.BACKWARDS_SPEED
-	#player.sprite_animation.play("move_backward")
 	
 	player.move_and_slide()
 	
 	# Check idle
 	if direction == 0:
-		state_exited_to.emit(CharacterStates.HORIZONTAL_STATES.IDLE)
+		go_to_state(CharacterStates.HORIZONTAL_STATES.IDLE)
 		return
 
 func exit():
-	player.stop_animation()
+	if vertical_state_machine.curr_state.enum_name == CharacterStates.VERTICAL_STATES.NEUTRAL:
+		player.stop_animation()
+		player.velocity.x = 0

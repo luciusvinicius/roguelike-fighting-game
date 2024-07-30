@@ -15,7 +15,8 @@ const FOWARD_DASH_SPEED := 450.0
 const FOWARD_BREAK_SPEED := 25.0
 const BACK_DASH_SPEED := 250.0
 
-const JUMP_VELOCITY = -400.0
+const JUMP_VELOCITY := 450.0
+const GRAVITY := 980.0
 
 
 ## --- Vars ---
@@ -25,8 +26,6 @@ var blocking = [] # ["low"], ["high"], ["low", "high"]?
 var current_animation_priority = 0
 ## --- Logic ---
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
 	# Run state machines
@@ -63,7 +62,9 @@ func play_animation(animation_name: String, priority: int) -> void:
 func stop_animation() -> void:
 	"""Resets animation and the current priority"""
 	current_animation_priority = 0
+	var current_frame = sprite_animation.get_frame()
 	sprite_animation.stop()
+	sprite_animation.frame = current_frame
 
 func reset_animation_priority() -> void:
 	current_animation_priority = 0

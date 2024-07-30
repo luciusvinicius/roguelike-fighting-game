@@ -5,15 +5,17 @@ extends Node
 var enum_name
 
 ## --- Signals ---
-signal state_exited_to(new_state)
+signal state_exited_to(new_state, args)
 
 ## --- Logic ---
 func update(_delta):
 	pass # Replace with function body.
 
-func enter():
+func enter(_args):
 	pass
 
 func exit():
 	pass
 
+func go_to_state(new_state, args = []):
+	state_exited_to.emit(new_state, args)

@@ -19,14 +19,14 @@ func _ready():
 
 func start():
 	curr_state = get_child(0)
-	curr_state.enter()
+	curr_state.enter("start")
 	running = true
 
 func _physics_process(delta):
 	if not Engine.is_editor_hint() and running:
 		curr_state.update(delta)
 
-func exit_state(new_state : int) -> void:
+func exit_state(new_state : int, args) -> void:
 	if not Engine.is_editor_hint():
 		if DEBUG:
 			print("DEBUG - Exiting State: ", curr_state)
@@ -42,7 +42,7 @@ func exit_state(new_state : int) -> void:
 		curr_state = new_curr_state
 		if DEBUG:
 			print("DEBUG - Entering State: ", new_curr_state)
-		new_curr_state.enter()
+		new_curr_state.enter(args)
 
 
 # --- Editor ---

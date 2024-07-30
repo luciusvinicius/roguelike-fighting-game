@@ -5,14 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://b1t3r68ajgid3" path="res://imgs/stages/destroyed_city/bg.png" id="2_w8chn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w4rng"]
-size = Vector2(2685, 201)
+size = Vector2(2685, 200)
 
 [node name="Stage" type="Node2D"]
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(272, 200)
-anchor_mode = 0
-zoom = Vector2(2, 2)
 
 [node name="Ground" type="Node2D" parent="."]
 
@@ -26,11 +21,16 @@ metadata/_edit_lock_ = true
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/Hitbox"]
-position = Vector2(553.5, 547.5)
+position = Vector2(553.5, 548)
 shape = SubResource("RectangleShape2D_w4rng")
 
 [node name="Character" parent="." instance=ExtResource("1_h4h5x")]
 position = Vector2(424, 360)
+
+[node name="Camera2D" type="Camera2D" parent="Character"]
+position = Vector2(-152, -160)
+anchor_mode = 0
+zoom = Vector2(2, 2)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
