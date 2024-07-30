@@ -6,10 +6,14 @@ func _ready():
 	enum_name = CharacterStates.HORIZONTAL_STATES.IDLE
 
 func enter():
-	player.sprite_animation.play("idle")
+	var vertical_state = player.state_machines.get_node("VerticalMovement").curr_state
+	if vertical_state and vertical_state.enum_name != CharacterStates.VERTICAL_STATES.NEUTRAL: return
 	player.default_frame_collider.enable()
 
 func update(_delta):
+	
+	player.play_animation("idle", 0)
+	
 	# Check dash
 	if Input.is_action_pressed("dash"):
 		state_exited_to.emit(CharacterStates.HORIZONTAL_STATES.FOWARDDASH)

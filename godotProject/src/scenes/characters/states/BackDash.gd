@@ -8,9 +8,11 @@ func _ready():
 	enum_name = CharacterStates.HORIZONTAL_STATES.BACKDASH
 
 func enter():
-	player.sprite_animation.play("backdash")
+	pass
+	#player.sprite_animation.play("backdash")
 
 func update(_delta):
+	player.play_animation("backdash", 0)
 	player.velocity.x = -player.BACK_DASH_SPEED
 	player.move_and_slide()
 

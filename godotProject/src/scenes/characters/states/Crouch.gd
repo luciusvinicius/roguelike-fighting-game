@@ -8,15 +8,21 @@ func _ready():
 	enum_name = CharacterStates.VERTICAL_STATES.CROUCH
 
 func enter():
-	pass
+	player.play_animation("crouch_startup", 2)
 
 func update(_delta):
-	# Force Horizontal lock.
-	# TODO: See what about blocking...
-	owner.state_machines.get_node("HorizontalMovement").curr_state.state_exited_to\
-	.emit(CharacterStates.HORIZONTAL_STATES.IDLE)
 	if Input.is_action_just_released("crouch") or Input.is_action_pressed("jump"):
 		state_exited_to.emit(CharacterStates.VERTICAL_STATES.NEUTRAL)
 
 func exit():
-	pass
+	player.reset_animation_priority()
+	player.play_animation("get_up", 1)
+
+
+func _on_player_animation_looped():
+	match player.sprite_animation.animation:
+		"crouch_startup":
+			player.play_animation("crouch_loop", 2)
+		"get_up":
+			player.reset_animation_priority()
+			player.play_animation("idle", 0)

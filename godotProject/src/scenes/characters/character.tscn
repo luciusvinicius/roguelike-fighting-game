@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://gcdaaahqu8oi"]
+[gd_scene load_steps=114 format=3 uid="uid://gcdaaahqu8oi"]
 
 [ext_resource type="PackedScene" uid="uid://co46uyfb46a6m" path="res://src/scenes/characters/frame_collider.tscn" id="1_57dbs"]
 [ext_resource type="Script" path="res://src/scenes/characters/character.gd" id="1_tv5vm"]
@@ -88,9 +88,27 @@
 [ext_resource type="Texture2D" uid="uid://u1wanycnn2qu" path="res://imgs/characters/ciel/backdash/cie14_026.png" id="28_s74cp"]
 [ext_resource type="Texture2D" uid="uid://ctvpnets3pjyv" path="res://imgs/characters/ciel/backdash/cie14_027.png" id="29_c6vgh"]
 [ext_resource type="Texture2D" uid="uid://dwlx03u5bwpfn" path="res://imgs/characters/ciel/backdash/cie14_028.png" id="30_3moci"]
+[ext_resource type="Texture2D" uid="uid://drcjv3xq36rah" path="res://imgs/characters/ciel/crouch/cie28_000.png" id="31_mb81d"]
+[ext_resource type="Texture2D" uid="uid://7qu4km5g6qdc" path="res://imgs/characters/ciel/crouch/cie28_001.png" id="32_a04ql"]
+[ext_resource type="Texture2D" uid="uid://bbady8ynp8jht" path="res://imgs/characters/ciel/crouch/cie28_002.png" id="33_dcvre"]
+[ext_resource type="Texture2D" uid="uid://csgw58jxk2qk6" path="res://imgs/characters/ciel/crouch/cie28_003.png" id="34_mx5gr"]
+[ext_resource type="Texture2D" uid="uid://d21vifd65ob1r" path="res://imgs/characters/ciel/crouch/cie28_004.png" id="35_yinrh"]
+[ext_resource type="Texture2D" uid="uid://ojn8qd4b2akk" path="res://imgs/characters/ciel/crouch/cie28_005.png" id="36_so1s0"]
+[ext_resource type="Texture2D" uid="uid://t7dwow7o7wse" path="res://imgs/characters/ciel/crouch/cie28_006.png" id="37_5vijj"]
+[ext_resource type="Texture2D" uid="uid://b4iq7s22q35qy" path="res://imgs/characters/ciel/crouch/cie28_007.png" id="38_x5nfi"]
+[ext_resource type="Texture2D" uid="uid://dn2yci5pkt8yd" path="res://imgs/characters/ciel/crouch/cie28_008.png" id="39_ishha"]
+[ext_resource type="Texture2D" uid="uid://tem4tro3wcld" path="res://imgs/characters/ciel/crouch/cie28_009.png" id="40_m6qcc"]
+[ext_resource type="Texture2D" uid="uid://ldam4rwgh33c" path="res://imgs/characters/ciel/crouch/cie28_010.png" id="41_eor0j"]
 [ext_resource type="Script" path="res://src/scenes/characters/states/MoveBackward.gd" id="42_sooef"]
 [ext_resource type="Script" path="res://src/scenes/characters/states/FowardDash.gd" id="43_3c6bt"]
+[ext_resource type="Texture2D" uid="uid://c5b5uemw2vc1y" path="res://imgs/characters/ciel/neutral/cie28_011.png" id="60_3lv04"]
+[ext_resource type="Texture2D" uid="uid://duy5cmdthabqt" path="res://imgs/characters/ciel/neutral/cie28_012.png" id="61_kt4qd"]
 [ext_resource type="Script" path="res://src/scenes/characters/states/BackDash.gd" id="62_2sovr"]
+[ext_resource type="Texture2D" uid="uid://dap3jbtmvqqit" path="res://imgs/characters/ciel/neutral/cie28_013.png" id="62_ixvbd"]
+[ext_resource type="Texture2D" uid="uid://bcb8atomh625n" path="res://imgs/characters/ciel/neutral/cie28_014.png" id="63_xal8n"]
+[ext_resource type="Texture2D" uid="uid://b40lgncqenk2n" path="res://imgs/characters/ciel/neutral/cie28_015.png" id="64_dudar"]
+[ext_resource type="Texture2D" uid="uid://d2o2vxd28x543" path="res://imgs/characters/ciel/neutral/cie28_016.png" id="65_r5aa4"]
+[ext_resource type="Texture2D" uid="uid://c458qvo2jetrc" path="res://imgs/characters/ciel/neutral/cie28_017.png" id="66_mk4i3"]
 [ext_resource type="Script" path="res://src/scenes/characters/states/Neutral.gd" id="92_jwnu8"]
 [ext_resource type="Script" path="res://src/scenes/characters/states/Crouch.gd" id="93_xpvau"]
 
@@ -190,6 +208,52 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("41_eor0j")
+}],
+"loop": true,
+"name": &"crouch_loop",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("31_mb81d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_a04ql")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_dcvre")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_mx5gr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_yinrh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_so1s0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_5vijj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_x5nfi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_ishha")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_m6qcc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_eor0j")
+}],
+"loop": true,
+"name": &"crouch_startup",
+"speed": 48.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("2_pm8xr")
 }, {
 "duration": 1.0,
@@ -255,6 +319,32 @@ animations = [{
 }],
 "loop": true,
 "name": &"fdash_startup",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("60_3lv04")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_kt4qd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_ixvbd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_xal8n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_dudar")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_r5aa4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_mk4i3")
+}],
+"loop": true,
+"name": &"get_up",
 "speed": 24.0
 }, {
 "frames": [{
@@ -422,7 +512,8 @@ script = ExtResource("1_tv5vm")
 
 [node name="SpriteAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gopkg")
-animation = &"backdash"
+animation = &"get_up"
+frame_progress = 0.69143
 
 [node name="GroundDetector" type="CollisionShape2D" parent="."]
 position = Vector2(0, 72)
@@ -463,3 +554,4 @@ script = ExtResource("93_xpvau")
 
 [connection signal="animation_looped" from="SpriteAnimation" to="StateMachines/HorizontalMovement/FowardDash" method="_on_player_animation_looped"]
 [connection signal="animation_looped" from="SpriteAnimation" to="StateMachines/HorizontalMovement/BackDash" method="_on_player_animation_looped"]
+[connection signal="animation_looped" from="SpriteAnimation" to="StateMachines/VerticalMovement/Crouch" method="_on_player_animation_looped"]

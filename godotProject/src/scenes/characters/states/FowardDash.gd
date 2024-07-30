@@ -10,12 +10,13 @@ func _ready():
 	enum_name = CharacterStates.HORIZONTAL_STATES.FOWARDDASH
 
 func enter():
-	player.sprite_animation.play("fdash_startup")
 	animation_phase = "startup"
 	dash_holded = true
 
 func update(_delta):
 	var direction = Input.get_axis("left", "right")
+	
+	player.play_animation("fdash_startup", 0)
 	
 	# Keep moving foward
 	if dash_holded and animation_phase != "break":

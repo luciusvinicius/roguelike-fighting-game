@@ -21,6 +21,8 @@ const JUMP_VELOCITY = -400.0
 ## --- Vars ---
 var blocking = [] # ["low"], ["high"], ["low", "high"]?
 
+
+var current_animation_priority = 0
 ## --- Logic ---
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -51,5 +53,21 @@ func _ready():
 	#move_and_slide()
 
 ## --- Auxiliar Functions ---
+# Animations
+func play_animation(animation_name: String, priority: int) -> void:
+	"""Given a certain priority, play animation."""
+	if priority < current_animation_priority: return
+	sprite_animation.play(animation_name)
+	current_animation_priority = priority
+
+func stop_animation() -> void:
+	"""Resets animation and the current priority"""
+	current_animation_priority = 0
+	sprite_animation.stop()
+
+func reset_animation_priority() -> void:
+	current_animation_priority = 0
+
+# Other
 func get_facing_direction() -> int:
 	return -1 if sprite_animation.flip_h else 1
