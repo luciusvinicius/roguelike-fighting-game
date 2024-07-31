@@ -42,14 +42,14 @@ func _ready():
 ## --- Auxiliar Functions ---
 # Animations
 func play_animation(animation_name: String, priority: int) -> Dictionary:
-	"""Given a certain priority, play animation. Returns the framedata if used."""
+	"""Given a certain priority, play animation. Returns the framedata, if used."""
 	if priority < current_animation_priority: return {}
 	sprite_animation.play(animation_name)
 	current_animation_priority = priority
 	
 	# Setup framedata
 	var animation_frame_data = get_frame_data_by_name(animation_name)
-	frame_collider.setup_collisions(animation_frame_data, 0) # first idx
+	frame_collider.setup_collisions(animation_frame_data, sprite_animation.frame)
 	return animation_frame_data
 
 func stop_animation() -> void:

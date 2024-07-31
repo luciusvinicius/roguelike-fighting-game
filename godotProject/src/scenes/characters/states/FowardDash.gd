@@ -4,22 +4,25 @@ extends PlayerState
 var dash_holded := true
 var animation_phase := "startup"
 
-# Called when the node enters the scene tree for the first time.
+## --- Logic ---
+
 func _ready():
 	enum_name = CharacterStates.HORIZONTAL_STATES.FOWARDDASH
+	animations_to_update = ["fdash_startup", "fdash_loop", "fdash_break"]
 
 func enter(args):
-	frame_data = player.get_frame_data_by_name("fdash_startup")
 	super.enter(args)
 	animation_phase = "startup"
 	dash_holded = true
-	frame_collider.setup(frame_data)
-	player.play_animation("fdash_startup", 0)
-	frame_collider.setup_collisions(frame_data, curr_frame)
-
 
 func update(_delta):
 	var direction = Input.get_axis("left", "right")
+	
+	# Play correct animation
+	if animation_phase == "startup":
+		player.play_animation("fdash_startup", 0)
+	elif animation_phase == "loop":
+		player.play_animation("fdash_loop", 1)
 	
 	# Ignore other inputs if jumping
 	if vertical_state_machine.curr_state.enum_name in [CharacterStates.VERTICAL_STATES.JUMP]:
@@ -31,7 +34,9 @@ func update(_delta):
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, player.FOWARD_BREAK_SPEED)
 		animation_phase = "break"
-		player.sprite_animation.play("fdash_break")
+		player.reset_animation_priority()
+		player.play_animation("fdash_break", 0)
+		
 		
 	player.move_and_slide()
 	
@@ -50,23 +55,15 @@ func update(_delta):
 func _on_player_animation_looped():
 	match player.sprite_animation.animation:
 		"fdash_startup":
-			if animation_phase == "startup":
-				curr_frame = 0
-				frame_data = player.play_animation("fdash_loop", 1)
-				n_frames = frame_collider.get_number_of_frames(frame_data)
+			print("finish startup")
+			animation_phase = "loop"
+			frame_data = player.play_animation("fdash_loop", 1)
+	
 		"fdash_break":
+			animation_phase = "break"
 			go_to_state(CharacterStates.HORIZONTAL_STATES.IDLE)
 			player.reset_animation_priority()
 			player.play_animation("idle", 0)
 	
 
-func _on_animation_frame_changed():
-	match player.sprite_animation.animation:
-		"fdash_startup":
-			#print("frame changed")
-			update_frame_data()
-		"fdash_loop":
-			update_frame_data()
-		"fdash_break":
-			#print("thing 2")
-			pass
+
