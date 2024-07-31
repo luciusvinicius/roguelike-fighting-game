@@ -9,6 +9,11 @@ size = Vector2(2685, 200)
 
 [node name="Stage" type="Node2D"]
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(272, 200)
+anchor_mode = 0
+zoom = Vector2(2, 2)
+
 [node name="Ground" type="Node2D" parent="."]
 
 [node name="Ground" type="Sprite2D" parent="Ground"]
@@ -26,11 +31,6 @@ shape = SubResource("RectangleShape2D_w4rng")
 
 [node name="Character" parent="." instance=ExtResource("1_h4h5x")]
 position = Vector2(424, 360)
-
-[node name="Camera2D" type="Camera2D" parent="Character"]
-position = Vector2(-152, -160)
-anchor_mode = 0
-zoom = Vector2(2, 2)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

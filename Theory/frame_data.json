@@ -1,0 +1,25 @@
+
+[
+    {
+        "name": "foward_dash",
+        "sprite_animation": "foward_dash",
+        "hit": "unblockable",
+        "counter_hittable": true,
+        "meter_generation": 5,
+        "knockback": 10,
+        "flavor_frames": 5, // Number of frames that are considered "flavor" frames, that being the attack finished.
+        "hard_knockdown": false,
+        "cancels": {
+            "hit": ["dash", "special", "jump", "5A"],
+            "whiff": ["5A"]
+        },
+        "frame_data": {
+            // Each element is 1 frame.
+            // Number of elements + flavor_frames should be the same as the number of frames in the animation.
+            "hurtboxes": [["posx", "posy", "width", "height"]],
+            "hitboxes": [["posx", "posy", "width", "height"]],
+            "damage": [0]
+        },
+    }
+]
+
