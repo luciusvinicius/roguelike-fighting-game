@@ -9,7 +9,7 @@ func _ready():
 func enter(_args):
 	var vertical_state = vertical_state_machine.curr_state
 	if vertical_state and vertical_state.enum_name != CharacterStates.VERTICAL_STATES.NEUTRAL: return
-	player.default_frame_collider.enable()
+	#player.frame_collider.enable()
 
 func update(_delta):
 	
@@ -33,7 +33,8 @@ func update(_delta):
 		go_to_state(CharacterStates.HORIZONTAL_STATES.MOVEBACKWARD)
 
 func exit():
-	player.default_frame_collider.disable()
+	#player.default_frame_collider.disable()
+	pass
 
 
 func _on_player_animation_looped():

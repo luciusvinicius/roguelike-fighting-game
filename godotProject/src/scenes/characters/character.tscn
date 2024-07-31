@@ -651,13 +651,13 @@ script = ExtResource("1_tv5vm")
 
 [node name="SpriteAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gopkg")
-animation = &"foward_jump_start"
+animation = &"idle"
 
 [node name="GroundDetector" type="CollisionShape2D" parent="."]
 position = Vector2(0, 72)
 shape = SubResource("SeparationRayShape2D_qcfq7")
 
-[node name="DefaultFrameCollider" parent="." instance=ExtResource("1_57dbs")]
+[node name="FrameCollider" parent="." instance=ExtResource("1_57dbs")]
 
 [node name="StateMachines" type="Node" parent="."]
 
@@ -694,3 +694,4 @@ script = ExtResource("112_p3jtk")
 [connection signal="animation_looped" from="SpriteAnimation" to="StateMachines/HorizontalMovement/BackDash" method="_on_player_animation_looped"]
 [connection signal="animation_looped" from="SpriteAnimation" to="StateMachines/VerticalMovement/Crouch" method="_on_player_animation_looped"]
 [connection signal="animation_looped" from="SpriteAnimation" to="StateMachines/VerticalMovement/Jump" method="_on_player_animation_looped"]
+[connection signal="frame_changed" from="SpriteAnimation" to="StateMachines/HorizontalMovement/FowardDash" method="_on_animation_frame_changed"]

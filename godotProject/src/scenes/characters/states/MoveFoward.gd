@@ -9,7 +9,8 @@ func _ready():
 	enum_name = CharacterStates.HORIZONTAL_STATES.MOVEFOWARD
 
 func enter(_args):
-	player.default_frame_collider.enable()
+	#player.default_frame_collider.enable()
+	pass
 
 func update(_delta):
 	

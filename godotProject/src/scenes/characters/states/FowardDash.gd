@@ -1,20 +1,22 @@
-extends State
+extends PlayerState
 
 ## --- Vars ---
-@onready var player: Player = owner
-@onready var vertical_state_machine = player.get_node("StateMachines").get_node("VerticalMovement")
-var animation_phase := "startup"
 var dash_holded := true
+var animation_phase := "startup"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	enum_name = CharacterStates.HORIZONTAL_STATES.FOWARDDASH
 
-func enter(_args):
+func enter(args):
+	frame_data = player.get_frame_data_by_name("fdash_startup")
+	super.enter(args)
 	animation_phase = "startup"
 	dash_holded = true
+	frame_collider.setup(frame_data)
 	player.play_animation("fdash_startup", 0)
-	
+	frame_collider.setup_collisions(frame_data, curr_frame)
+
 
 func update(_delta):
 	var direction = Input.get_axis("left", "right")
@@ -49,9 +51,22 @@ func _on_player_animation_looped():
 	match player.sprite_animation.animation:
 		"fdash_startup":
 			if animation_phase == "startup":
-				player.play_animation("fdash_loop", 1)
+				curr_frame = 0
+				frame_data = player.play_animation("fdash_loop", 1)
+				n_frames = frame_collider.get_number_of_frames(frame_data)
 		"fdash_break":
 			go_to_state(CharacterStates.HORIZONTAL_STATES.IDLE)
 			player.reset_animation_priority()
 			player.play_animation("idle", 0)
 	
+
+func _on_animation_frame_changed():
+	match player.sprite_animation.animation:
+		"fdash_startup":
+			#print("frame changed")
+			update_frame_data()
+		"fdash_loop":
+			update_frame_data()
+		"fdash_break":
+			#print("thing 2")
+			pass

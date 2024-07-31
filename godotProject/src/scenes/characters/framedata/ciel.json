@@ -1,0 +1,51 @@
+[
+	{
+		"name": "idle",
+		"sprite_animation": "idle",
+		"collision": {
+			"hurtboxes": [[[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]]]
+		}
+	},
+	{
+		"name": "fdash_startup",
+		"sprite_animation": "fdash_startup",
+		"collision": {
+			"hurtboxes": [[[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 44]], [[0, 43.5, 40, 44]], [[0, 43.5, 40, 44]]]
+		}
+	},
+	{
+		"name": "fdash_loop",
+		"sprite_animation": "fdash_loop",
+		"collision": {
+			"hurtboxes": [[[0, 66, 96, 36]], [[0, 66, 96, 36]]]
+		}
+	},
+	{
+		"name": "fdash_break",
+		"sprite_animation": "fdash_break",
+		"collision": {
+			"hurtboxes": [[[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]], [[0, 43.5, 40, 88]]]
+		}
+	},
+	{
+		"name": "5A",
+		"sprite_animation": "5A",
+		"hit": "unblockable",
+		"meter_generation": 5,
+		"knockback": 10,
+		"flavor_frames": 5,
+		"scale_start": 80,
+		"damage": [10],
+		"hard_knockdown": false,
+		"counter_hittable": true,
+		"cancels": {
+			"hit": ["dash", "special", "jump", "5A"],
+			"whiff": ["5A"]
+		},
+		"collision": {
+			"hurtboxes": [["posx", "posy", "width", "height"]],
+			"hitboxes": [["posx", "posy", "width", "height"]]
+		}
+	},
+]
+

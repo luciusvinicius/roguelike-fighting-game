@@ -4,7 +4,7 @@ extends CharacterBody2D
 
 ## --- Nodes ---
 @onready var sprite_animation = $SpriteAnimation
-@onready var default_frame_collider = $DefaultFrameCollider
+@onready var frame_collider = $FrameCollider
 @onready var state_machines = $StateMachines
 
 ## --- Consts ---
@@ -20,8 +20,9 @@ const GRAVITY := 980.0
 
 
 ## --- Vars ---
+var char_name = "Ciel"
 var blocking = [] # ["low"], ["high"], ["low", "high"]?
-
+var frame_data
 
 var current_animation_priority = 0
 ## --- Logic ---
@@ -31,33 +32,25 @@ func _ready():
 	# Run state machines
 	for state_machine in state_machines.get_children():
 		state_machine.start()
-
-#func _physics_process(delta):
-	## Add the gravity.
-	#if not is_on_floor():
-		#velocity.y += gravity * delta
-#
-	## Handle jump.
-	#if Input.is_action_just_pressed("jump") and is_on_floor():
-		#velocity.y = JUMP_VELOCITY
-#
-	## Get the input direction and handle the movement/deceleration.
-	## As good practice, you should replace UI actions with custom gameplay actions.
-	#var direction = Input.get_axis("left", "right")
-	#if direction:
-		#velocity.x = direction * SPEED
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, SPEED)
-#
-	#move_and_slide()
+	
+	# Get Framedata file
+	var frame_data_file = "res://src/scenes/characters/framedata/%s.json" % char_name.to_lower()
+	frame_data = JSON.parse_string(FileAccess.get_file_as_string(frame_data_file))
+	#print("Frame Data: ", frame_data)
+	
 
 ## --- Auxiliar Functions ---
 # Animations
-func play_animation(animation_name: String, priority: int) -> void:
-	"""Given a certain priority, play animation."""
-	if priority < current_animation_priority: return
+func play_animation(animation_name: String, priority: int) -> Dictionary:
+	"""Given a certain priority, play animation. Returns the framedata if used."""
+	if priority < current_animation_priority: return {}
 	sprite_animation.play(animation_name)
 	current_animation_priority = priority
+	
+	# Setup framedata
+	var animation_frame_data = get_frame_data_by_name(animation_name)
+	frame_collider.setup_collisions(animation_frame_data, 0) # first idx
+	return animation_frame_data
 
 func stop_animation() -> void:
 	"""Resets animation and the current priority"""
@@ -72,3 +65,7 @@ func reset_animation_priority() -> void:
 # Other
 func get_facing_direction() -> int:
 	return -1 if sprite_animation.flip_h else 1
+	
+func get_frame_data_by_name(frame_data_name: String) -> Dictionary:
+	return frame_data.filter(func(fd): return fd.name == frame_data_name)[0]
+
