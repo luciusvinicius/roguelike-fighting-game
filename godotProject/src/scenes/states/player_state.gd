@@ -19,14 +19,14 @@ func enter(args):
 	#n_frames = frame_data.collision["hurtboxes"].size()
 	#frame_collider = player.frame_collider
 
-func update_frame_data() -> void:
-	"""Increases the current_frames and setup the correct collision"""
-	pass
-	#curr_frame += 1
-	#curr_frame %= n_frames
-	#frame_collider.setup_collisions(frame_data, curr_frame)
-
-func _on_animation_frame_changed():
-	# If a frame in the animation changes, update its frame
-	if player.sprite_animation.animation in animations_to_update:
-		update_frame_data()
+#func update_frame_data() -> void:
+	#"""Increases the current_frames and setup the correct collision"""
+	#pass
+	##curr_frame += 1
+	##curr_frame %= n_frames
+	##frame_collider.setup_collisions(frame_data, curr_frame)
+#
+#func _on_animation_frame_changed():
+	## If a frame in the animation changes, update its frame
+	#if player.sprite_animation.animation in animations_to_update:
+		#update_frame_data()

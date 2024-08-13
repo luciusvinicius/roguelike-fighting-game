@@ -8,7 +8,6 @@ var animation_phase := "startup"
 
 func _ready():
 	enum_name = CharacterStates.HORIZONTAL_STATES.FOWARDDASH
-	animations_to_update = ["fdash_startup", "fdash_loop", "fdash_break"]
 
 func enter(args):
 	super.enter(args)
@@ -55,15 +54,13 @@ func update(_delta):
 func _on_player_animation_looped():
 	match player.sprite_animation.animation:
 		"fdash_startup":
-			print("finish startup")
 			animation_phase = "loop"
 			frame_data = player.play_animation("fdash_loop", 1)
-	
+			
 		"fdash_break":
 			animation_phase = "break"
 			go_to_state(CharacterStates.HORIZONTAL_STATES.IDLE)
 			player.reset_animation_priority()
 			player.play_animation("idle", 0)
-	
 
 

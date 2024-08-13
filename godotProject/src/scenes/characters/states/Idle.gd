@@ -38,5 +38,6 @@ func exit():
 
 
 func _on_player_animation_looped():
+	# After landing start idle
 	if "landing" in player.sprite_animation.animation:
 		player.reset_animation_priority()

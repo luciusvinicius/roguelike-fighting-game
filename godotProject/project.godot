@@ -23,6 +23,10 @@ CharacterStates="*res://src/autoloads/character_states.gd"
 
 window/stretch/mode="viewport"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/frame_data_properties/plugin.cfg")
+
 [input]
 
 left={

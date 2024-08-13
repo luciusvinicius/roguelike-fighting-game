@@ -25,8 +25,8 @@ var blocking = [] # ["low"], ["high"], ["low", "high"]?
 var frame_data
 
 var current_animation_priority = 0
-## --- Logic ---
 
+## --- Logic ---
 
 func _ready():
 	# Run state machines
@@ -34,10 +34,12 @@ func _ready():
 		state_machine.start()
 	
 	# Get Framedata file
+	frame_data = load_frame_data()
+
+# Separated function because it is used in the plugin
+func load_frame_data() -> Variant:
 	var frame_data_file = "res://src/scenes/characters/framedata/%s.json" % char_name.to_lower()
-	frame_data = JSON.parse_string(FileAccess.get_file_as_string(frame_data_file))
-	#print("Frame Data: ", frame_data)
-	
+	return JSON.parse_string(FileAccess.get_file_as_string(frame_data_file))
 
 ## --- Auxiliar Functions ---
 # Animations
