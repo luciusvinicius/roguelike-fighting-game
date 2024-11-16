@@ -46,5 +46,3 @@ func exit():
 	if vertical_state_machine.curr_state.enum_name == CharacterStates.VERTICAL_STATES.NEUTRAL:
 		player.stop_animation()
 		player.velocity.x = 0
-
-

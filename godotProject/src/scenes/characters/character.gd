@@ -69,5 +69,7 @@ func get_facing_direction() -> int:
 	return -1 if sprite_animation.flip_h else 1
 	
 func get_frame_data_by_name(frame_data_name: String) -> Dictionary:
-	return frame_data.filter(func(fd): return fd.name == frame_data_name)[0]
-
+	var frame_data_filter: Array = frame_data.filter(func(fd): return fd.name == frame_data_name)
+	assert(frame_data_filter.size() != 0, "ERROR: Frame Data '%s' does not exist for %s" % [frame_data_name, char_name])
+	return frame_data_filter[0]
+	

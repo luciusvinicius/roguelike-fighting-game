@@ -62,5 +62,3 @@ func _on_player_animation_looped():
 			go_to_state(CharacterStates.HORIZONTAL_STATES.IDLE)
 			player.reset_animation_priority()
 			player.play_animation("idle", 0)
-
-
