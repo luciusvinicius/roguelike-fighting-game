@@ -16,8 +16,7 @@ shape = SubResource("RectangleShape2D_2du1c")
 debug_color = Color(0.236612, 0.631348, 0.251593, 0.42)
 
 [node name="Hitboxes" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes"]
 shape = SubResource("RectangleShape2D_njeho")
-debug_color = Color(1, 0.6, 0.701961, 0.419608)
+debug_color = Color(0.959021, 0.187231, 0.203719, 0.419608)

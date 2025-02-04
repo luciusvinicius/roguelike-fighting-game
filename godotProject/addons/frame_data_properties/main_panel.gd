@@ -15,6 +15,7 @@ const COLLISION_PROPERTY_SCENE = preload("res://src/scenes/menus/collision_prope
 
 # Collision Tab
 @onready var hurtboxes_tab: VBoxContainer = $CharacterEditor/Row/CollisionTabs/Hurtboxes/HurtboxesVBox
+@onready var hitboxes_tab: VBoxContainer = $CharacterEditor/Row/CollisionTabs/Hitboxes/HitboxesVBox
 
 ## --- Consts ---
 const BASE_DIRECTORY := "res://src/scenes/characters/characters/"
@@ -78,31 +79,22 @@ func load_collisions(frame_data : Dictionary, ignore_collision_tab := false):
 	if "hurtboxes" in collision:
 		char_frame_collider.create_hurtboxes(collision.hurtboxes[animation_frame])
 	
-	# Setup signal for mouse hover collision
+	# Setup signal for mouse hover collision (not used)
 	var hurtboxes = char_frame_collider.get_node("Hurtboxes")
 	var hitboxes = char_frame_collider.get_node("Hitboxes")
-	
 	# Load collisions to edit (smal TODO: turn into function for "hitboxes")
 	if ignore_collision_tab: return # For some reason it does recursive loop if not.
 	# Setup window to edit collisions
 	# Remove existing collisions
-	var child_idx = 1
-	while child_idx < hurtboxes_tab.get_child_count():
-		# Remove first child until only the first remains
-		var child = hurtboxes_tab.get_child(child_idx)
-		hurtboxes_tab.remove_child(child)
-		child.queue_free()
+	remove_children_from_properties(hurtboxes_tab)
+	remove_children_from_properties(hitboxes_tab)
 	
 	if "hurtboxes" in collision:
-		var hurt_idx = 0
-		for hurtbox in collision["hurtboxes"][animation_frame]:
-			var collision_property_node : CollisionProperty = COLLISION_PROPERTY_SCENE.instantiate()
-			hurtboxes_tab.add_child(collision_property_node)
-			# Connect to receive changes in the input
-			collision_property_node.collision_properties_changed.connect(change_collision_properties)
-			collision_property_node.delete_collision_property.connect(delete_collision_property)
-			collision_property_node.fill_collision_properties(hurtbox, hurt_idx, "hurtboxes")
-			hurt_idx += 1
+		create_collision_properties(collision, animation_frame, "hurtboxes")
+	if "hitboxes" in collision:
+		create_collision_properties(collision, animation_frame, "hitboxes")
+	
+
 
 func load_animations(frame_data_list : Array):
 	character_animations.clear()
@@ -135,6 +127,18 @@ func _on_frame_item_selected(index: int) -> void:
 
 
 ## --- Hitboxes / Hurtboxes ---
+func create_collision_properties(collision: Dictionary, animation_frame:int, type: String):
+	# type = "hurtboxes" or "hitboxes"
+	var collision_idx = 0
+	var tab = hurtboxes_tab if type == "hurtboxes" else hitboxes_tab
+	for box in collision[type][animation_frame]:
+		var collision_property_node : CollisionProperty = COLLISION_PROPERTY_SCENE.instantiate()
+		tab.add_child(collision_property_node)
+		# Connect to receive changes in the input
+		collision_property_node.collision_properties_changed.connect(change_collision_properties)
+		collision_property_node.delete_collision_property.connect(delete_collision_property)
+		collision_property_node.fill_collision_properties(box, collision_idx, type)
+		collision_idx += 1
 
 func change_collision_properties(type: String, idx: int, properties: Array):
 	# type = "hurtboxes" or "hitboxes"
@@ -148,6 +152,14 @@ func delete_collision_property(type: String, idx: int):
 	var animation_frame = char_sprite_animation.frame
 	collision[animation_frame][idx] = [0, 0, 0, 0] # if size = 0, collision doesn't exist lmao. TODO: when saving, remove those cursed collisions
 	load_collisions(char_frame_data[animation_idx], true) # ignore collision window
+
+func remove_children_from_properties(node):
+	var child_idx = 1 # keep the "NEW" button on the collisions
+	while child_idx < node.get_child_count():
+		# Remove first child until only the first remains
+		var child = node.get_child(child_idx)
+		node.remove_child(child)
+		child.queue_free()
 
 func _on_new_collision_pressed(type: String) -> void:
 	var collision = char_frame_data[animation_idx].collision[type]

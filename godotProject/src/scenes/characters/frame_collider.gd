@@ -10,7 +10,7 @@ signal punish
 
 ## --- Consts ---
 const HURTBOX_COLOR = "3ca1406b"
-const HITBOX_COLOR = "fd00406b"
+const HITBOX_COLOR = "f530346b"
 
 ## --- Vars ---
 var hit_type : String

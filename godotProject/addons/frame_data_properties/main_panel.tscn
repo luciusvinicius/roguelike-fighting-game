@@ -87,10 +87,24 @@ layout_mode = 2
 size_flags_horizontal = 3
 current_tab = 0
 
-[node name="Hurtboxes" type="ScrollContainer" parent="CharacterEditor/Row/CollisionTabs"]
+[node name="General" type="ScrollContainer" parent="CharacterEditor/Row/CollisionTabs"]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 metadata/_tab_index = 0
+
+[node name="HurtboxesVBox" type="VBoxContainer" parent="CharacterEditor/Row/CollisionTabs/General"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="New" type="Button" parent="CharacterEditor/Row/CollisionTabs/General/HurtboxesVBox"]
+layout_mode = 2
+text = "Nothing yet"
+
+[node name="Hurtboxes" type="ScrollContainer" parent="CharacterEditor/Row/CollisionTabs"]
+visible = false
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="HurtboxesVBox" type="VBoxContainer" parent="CharacterEditor/Row/CollisionTabs/Hurtboxes"]
 layout_mode = 2
@@ -98,6 +112,22 @@ size_flags_horizontal = 3
 
 [node name="New" type="Button" parent="CharacterEditor/Row/CollisionTabs/Hurtboxes/HurtboxesVBox"]
 layout_mode = 2
+size_flags_horizontal = 4
+text = "New"
+
+[node name="Hitboxes" type="ScrollContainer" parent="CharacterEditor/Row/CollisionTabs"]
+visible = false
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="HitboxesVBox" type="VBoxContainer" parent="CharacterEditor/Row/CollisionTabs/Hitboxes"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="New" type="Button" parent="CharacterEditor/Row/CollisionTabs/Hitboxes/HitboxesVBox"]
+layout_mode = 2
+size_flags_horizontal = 4
 text = "New"
 
 [connection signal="item_selected" from="CharacterSelect/Col/CharacterOptions" to="." method="_on_character_selected"]
@@ -106,3 +136,4 @@ text = "New"
 [connection signal="item_selected" from="CharacterEditor/Row/Col/Frame" to="." method="_on_frame_item_selected"]
 [connection signal="pressed" from="CharacterEditor/Row/Col/PlayAnimation" to="." method="_on_play_animation_pressed"]
 [connection signal="pressed" from="CharacterEditor/Row/CollisionTabs/Hurtboxes/HurtboxesVBox/New" to="." method="_on_new_collision_pressed" binds= ["hurtboxes"]]
+[connection signal="pressed" from="CharacterEditor/Row/CollisionTabs/Hitboxes/HitboxesVBox/New" to="." method="_on_new_collision_pressed" binds= ["hurtboxes"]]
