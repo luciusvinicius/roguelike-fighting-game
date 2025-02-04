@@ -14,7 +14,7 @@ const COLLISION_PROPERTY_SCENE = preload("res://src/scenes/menus/collision_prope
 @onready var play_animation_button: Button = $CharacterEditor/Row/Col/PlayAnimation
 
 # Collision Tab
-@onready var hurtboxes_tab: VBoxContainer = $CharacterEditor/Row/CollisionTabs/Hurtboxes
+@onready var hurtboxes_tab: VBoxContainer = $CharacterEditor/Row/CollisionTabs/Hurtboxes/HurtboxesVBox
 
 ## --- Consts ---
 const BASE_DIRECTORY := "res://src/scenes/characters/characters/"
@@ -86,7 +86,10 @@ func load_collisions(frame_data : Dictionary, ignore_collision_tab := false):
 	if ignore_collision_tab: return # For some reason it does recursive loop if not.
 	# Setup window to edit collisions
 	# Remove existing collisions
-	for child in hurtboxes_tab.get_children():
+	var child_idx = 1
+	while child_idx < hurtboxes_tab.get_child_count():
+		# Remove first child until only the first remains
+		var child = hurtboxes_tab.get_child(child_idx)
 		hurtboxes_tab.remove_child(child)
 		child.queue_free()
 	
@@ -146,12 +149,17 @@ func delete_collision_property(type: String, idx: int):
 	collision[animation_frame][idx] = [0, 0, 0, 0] # if size = 0, collision doesn't exist lmao. TODO: when saving, remove those cursed collisions
 	load_collisions(char_frame_data[animation_idx], true) # ignore collision window
 
+func _on_new_collision_pressed(type: String) -> void:
+	var collision = char_frame_data[animation_idx].collision[type]
+	var animation_frame = char_sprite_animation.frame
+	collision[animation_frame].append([0, 0, 20, 20])
+	load_collisions(char_frame_data[animation_idx]) # ignore collision window
+
 func save_frame_data(frame_data: Dictionary):
 	var frame_data_file = "res://src/scenes/characters/framedata/%s" % CHARACTER_NAMES[current_char_idx].to_lower() + "_test.json"
 	var file = FileAccess.open(frame_data_file, FileAccess.WRITE)
 	# TODO: remove collisions with [0, 0, 0, 0]
 	file.store_string(JSON.stringify(frame_data))
-
 
 
 ## --- Extras ---
