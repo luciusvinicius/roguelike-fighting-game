@@ -68,7 +68,6 @@ func create_collisions(collisions: Array, type) -> void:
 				collision_node.debug_color = HITBOX_COLOR
 				hitboxes.add_child(collision_node)
 
-
 ## --- Others ---
 func get_number_of_frames(frame_data) -> int: 
 	var collision = frame_data.collision
