@@ -684,7 +684,7 @@ script = ExtResource("1_tv5vm")
 
 [node name="SpriteAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gopkg")
-animation = &"idle"
+animation = &"get_up"
 
 [node name="GroundDetector" type="CollisionShape2D" parent="."]
 position = Vector2(0, 72)

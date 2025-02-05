@@ -184,18 +184,6 @@ func save_frame_data():
 		
 	file.store_string(JSON.stringify(char_frame_data))
 
-func remove_empty_collision(collision:Dictionary, type: String):
-	# type = "hurtboxes" or "hitboxes"
-	if type in collision:
-		for frame_box:Array in collision[type]:
-			var frame_box_idx = 0
-			while frame_box_idx < frame_box.size():
-				var specific_collision = frame_box[frame_box_idx]
-				if specific_collision == [0, 0, 0, 0]:
-					frame_box.remove_at(frame_box_idx)
-				else:
-					frame_box_idx += 1
-
 func _process(delta: float) -> void:
 	# Load collision when the animations is being played
 	if not char_sprite_animation or not char_sprite_animation.is_playing(): return
@@ -213,8 +201,19 @@ func play_animation():
 		character_animations.disabled = true
 		character_animation_frame.disabled = true
 		char_sprite_animation.play()
-		play_animation_button.text = "Stop Animation"
-		
+		play_animation_button.text = "Stop Animation"	
 
 func _on_play_animation_pressed() -> void:
 	play_animation()
+
+func remove_empty_collision(collision:Dictionary, type: String):
+	# type = "hurtboxes" or "hitboxes"
+	if type in collision:
+		for frame_box:Array in collision[type]:
+			var frame_box_idx = 0
+			while frame_box_idx < frame_box.size():
+				var specific_collision = frame_box[frame_box_idx]
+				if specific_collision == [0, 0, 0, 0]:
+					frame_box.remove_at(frame_box_idx)
+				else:
+					frame_box_idx += 1
