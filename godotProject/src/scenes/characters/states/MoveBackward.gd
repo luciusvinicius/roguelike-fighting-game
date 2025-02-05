@@ -3,6 +3,7 @@ extends State
 ## --- Vars ---
 @onready var player: Player = owner
 @onready var vertical_state_machine = player.get_node("StateMachines").get_node("VerticalMovement")
+@onready var input_buffer: InputBuffer = player.get_node("InputBuffer")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,13 +23,13 @@ func update(_delta):
 		return
 	
 	# Check dash
-	if Input.is_action_just_pressed("dash"):
+	if input_buffer.is_action_pressed("dash"):
 		go_to_state(CharacterStates.HORIZONTAL_STATES.BACKDASH)
 		return
 	
 	
 	# Check move foward
-	var direction = Input.get_axis("left", "right")	
+	var direction = input_buffer.get_axis("left", "right")	
 	if direction != 0 and direction == player.get_facing_direction():
 		go_to_state(CharacterStates.HORIZONTAL_STATES.MOVEFOWARD)
 		return

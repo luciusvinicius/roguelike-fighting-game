@@ -31,7 +31,7 @@ func update(_delta):
 		return
 	
 	# Check walking
-	var direction = Input.get_axis("left", "right")
+	var direction = input_buffer.get_axis("left", "right")
 	if direction == 0: return
 	if direction == player.get_facing_direction():
 		go_to_state(CharacterStates.HORIZONTAL_STATES.MOVEFOWARD)

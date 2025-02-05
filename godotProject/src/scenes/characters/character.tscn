@@ -1,4 +1,4 @@
-[gd_scene load_steps=145 format=3 uid="uid://gcdaaahqu8oi"]
+[gd_scene load_steps=148 format=3 uid="uid://gcdaaahqu8oi"]
 
 [ext_resource type="PackedScene" uid="uid://co46uyfb46a6m" path="res://src/scenes/characters/frame_collider.tscn" id="1_57dbs"]
 [ext_resource type="Script" path="res://src/scenes/characters/character.gd" id="1_tv5vm"]
@@ -142,6 +142,9 @@
 [ext_resource type="Texture2D" uid="uid://btq6bp28iymny" path="res://imgs/characters/ciel/neutral_jump/cie17_004.png" id="123_3fdpn"]
 [ext_resource type="Texture2D" uid="uid://b38uvwx8y6jre" path="res://imgs/characters/ciel/neutral_jump/cie17_005.png" id="124_daqfb"]
 [ext_resource type="PackedScene" uid="uid://b8oecsjsvvtq0" path="res://src/scenes/other/input_buffer.tscn" id="142_3o11h"]
+[ext_resource type="Script" path="res://src/scenes/characters/states/nothing.gd" id="143_nhyxb"]
+[ext_resource type="Script" path="res://src/scenes/characters/states/blocking.gd" id="144_r30uy"]
+[ext_resource type="Script" path="res://src/scenes/characters/states/attacking.gd" id="145_eux26"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gopkg"]
 animations = [{
@@ -169,7 +172,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"5A",
-"speed": 24.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -685,7 +688,7 @@ script = ExtResource("1_tv5vm")
 
 [node name="SpriteAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gopkg")
-animation = &"idle"
+animation = &"5A"
 
 [node name="GroundDetector" type="CollisionShape2D" parent="."]
 position = Vector2(0, 72)
@@ -725,9 +728,21 @@ script = ExtResource("93_xpvau")
 [node name="Jump" type="Node" parent="StateMachines/VerticalMovement"]
 script = ExtResource("112_p3jtk")
 
+[node name="Conditions" parent="StateMachines" instance=ExtResource("15_eknoy")]
+
+[node name="Nothing" type="Node" parent="StateMachines/Conditions"]
+script = ExtResource("143_nhyxb")
+
+[node name="Blocking" type="Node" parent="StateMachines/Conditions"]
+script = ExtResource("144_r30uy")
+
+[node name="Attacking" type="Node" parent="StateMachines/Conditions"]
+script = ExtResource("145_eux26")
+
 [connection signal="animation_looped" from="SpriteAnimation" to="StateMachines/HorizontalMovement/Idle" method="_on_player_animation_looped"]
 [connection signal="animation_looped" from="SpriteAnimation" to="StateMachines/HorizontalMovement/FowardDash" method="_on_player_animation_looped"]
 [connection signal="animation_looped" from="SpriteAnimation" to="StateMachines/HorizontalMovement/BackDash" method="_on_player_animation_looped"]
 [connection signal="animation_looped" from="SpriteAnimation" to="StateMachines/VerticalMovement/Crouch" method="_on_player_animation_looped"]
 [connection signal="animation_looped" from="SpriteAnimation" to="StateMachines/VerticalMovement/Jump" method="_on_player_animation_looped"]
+[connection signal="animation_looped" from="SpriteAnimation" to="StateMachines/Conditions/Nothing" method="_on_player_animation_looped"]
 [connection signal="frame_changed" from="SpriteAnimation" to="StateMachines/HorizontalMovement/FowardDash" method="_on_animation_frame_changed"]

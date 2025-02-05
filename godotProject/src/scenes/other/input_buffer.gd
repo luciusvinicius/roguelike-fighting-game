@@ -5,6 +5,7 @@ class_name InputBuffer
 const MOTION_FRAME_BUFFER = 20
 const ACTION_FRAME_BUFFER = 10
 const PRIORITY = [["jump", "dash"], [""]] # 623 should have priority if related to 236
+const ATTACK_ACTIONS = ["a", "b", "c"]
 const SPECIAL_INPUTS = [
 	{
 		"key": "236",
@@ -33,26 +34,78 @@ var action_buffer := [] # Used to apply action on the first frame possible.
 var curr_frame := 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	# print("Motion Buffer: ", motion_buffer)
 	print("Action Buffer: ", action_buffer)
 	
-	var current_input = get_pressed_input()
-	add_to_buffer(current_input, motion_buffer)
-	add_to_buffer(current_input, action_buffer)
-	delete_previous_buffers(motion_buffer, MOTION_FRAME_BUFFER)
-	delete_previous_buffers(action_buffer, ACTION_FRAME_BUFFER)
-	detect_specials()
+	var current_input = _get_pressed_input()
+	_add_to_buffer(current_input, motion_buffer)
+	_add_to_buffer(current_input, action_buffer)
+	_delete_previous_buffers(motion_buffer, MOTION_FRAME_BUFFER)
+	_delete_previous_buffers(action_buffer, ACTION_FRAME_BUFFER)
+	_detect_specials()
 	curr_frame += 1
 
+
+
+## --- Export Functions ---
 func is_action_pressed(action: String) -> bool:
-	"""Returns if determined action is pressed in the Buffer and remove it."""
+	"""Returns if determined action is pressed in the Buffer."""
+	# Previously it would remove it. But I don't think it is necessary anymore.
 	# TODO: what to do when blockstun for instance. Should remove it after done? idk
 	for input in action_buffer:
 		if action in input.actions: return true
 	return false
 
-func delete_previous_buffers(buffer: Array, frame_limit: int) -> void:
+func get_axis(action1: String, action2: String, remove_from_buffer := true) -> int:
+	"""Returns -1 if only action1, 1 if only action 2 or 0 if both or neither."""
+	var total_axis := 0
+	
+	var action_buffer_idx = 0
+	for input in action_buffer:
+		if action1 in input.actions:
+			total_axis -= 1
+			if remove_from_buffer:
+				action_buffer.remove_at(action_buffer_idx)
+			break
+		action_buffer_idx += 1
+	
+	action_buffer_idx = 0
+	for input in action_buffer:
+		if action2 in input.actions:
+			total_axis += 1
+			if remove_from_buffer:
+				action_buffer.remove_at(action_buffer_idx)
+			break
+		action_buffer_idx += 1
+	
+	return total_axis
+
+func get_attack() -> String:
+	"""Based on Action Buffer, return attack animation to be performed as String.
+	Returns empty String if there are no attacks."""
+	# TODO: Acredito que aqui tenha prioridade. Also adicionar lógica para specials.
+	
+	# Identify the FIRST attack that appears.
+	var selected_attack_action = ""
+	var selected_action = []
+	for input in action_buffer:
+		var attack_action = input.actions.filter(func(act): return act in ATTACK_ACTIONS)
+		if attack_action.size() > 0:
+			selected_attack_action = attack_action[0].to_upper()
+			selected_action = input.actions
+	
+	# If there are no attacks, then it doesn't matter if the player is crouched or not.
+	if selected_attack_action == "": return ""
+	
+	# Identify if it is crouch.
+	if "crouch" in selected_action:
+		return "2%s" % selected_attack_action
+	return "5%s" % selected_attack_action
+
+
+## --- Internal Logic ---
+func _delete_previous_buffers(buffer: Array, frame_limit: int) -> void:
 	"""Delete previous inputs in motion_buffer if before FRAME BUFFER"""
 	var input_idx = 0
 	for input in buffer:
@@ -61,7 +114,7 @@ func delete_previous_buffers(buffer: Array, frame_limit: int) -> void:
 		else:
 			input_idx += 1
 
-func detect_specials() -> void:
+func _detect_specials() -> void:
 	"""Given SPECIAL_INPUTS, add an special to the motion_buffer if detected."""
 	for special_input in SPECIAL_INPUTS:
 		var special_actions = special_input.actions
@@ -88,12 +141,12 @@ func detect_specials() -> void:
 				
 		
 
-func get_pressed_input() -> Array:
+func _get_pressed_input() -> Array:
 	"""Iterate every possible input action and returned the pressed, if any."""
 	# God, imagine having the method Input.get_actions_pressed()
 	var pressed_inputs = []
 	
-	if Input.is_action_pressed("dash"):
+	if Input.is_action_just_pressed("dash"):
 		pressed_inputs.append("dash")
 	
 	var direction = Input.get_axis("jump", "crouch")
@@ -104,15 +157,15 @@ func get_pressed_input() -> Array:
 	if direction < 0: pressed_inputs.append("left")
 	elif direction > 0: pressed_inputs.append("right")
 	
-	if Input.is_action_pressed("a"):
+	if Input.is_action_just_pressed("a"):
 		pressed_inputs.append("a")
-	if Input.is_action_pressed("b"):
+	if Input.is_action_just_pressed("b"):
 		pressed_inputs.append("b")
-	if Input.is_action_pressed("c"):
+	if Input.is_action_just_pressed("c"):
 		pressed_inputs.append("c")
 	return pressed_inputs
 
-func add_to_buffer(actions: Array, buffer: Array) -> void:
+func _add_to_buffer(actions: Array, buffer: Array) -> void:
 	"""Adds input to motion_buffer, if they exist. If it is the same input as before, increase its frame (holding inputs)."""
 	if actions.size() == 0: return
 	var previous_buffer_input = buffer[-1] if buffer.size() != 0 else {"actions": []}
