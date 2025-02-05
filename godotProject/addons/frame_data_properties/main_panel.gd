@@ -162,19 +162,39 @@ func remove_children_from_properties(node):
 		child.queue_free()
 
 func _on_new_collision_pressed(type: String) -> void:
-	var collision = char_frame_data[animation_idx].collision[type]
+	var collision = char_frame_data[animation_idx].collision
+	assert(type in collision, "'%s' not in collision. (Probably applying hitboxes in an action that doesn't have one.)" % type)
+	collision = collision[type]
 	var animation_frame = char_sprite_animation.frame
 	collision[animation_frame].append([0, 0, 20, 20])
 	load_collisions(char_frame_data[animation_idx]) # ignore collision window
 
-func save_frame_data(frame_data: Dictionary):
-	var frame_data_file = "res://src/scenes/characters/framedata/%s" % CHARACTER_NAMES[current_char_idx].to_lower() + "_test.json"
-	var file = FileAccess.open(frame_data_file, FileAccess.WRITE)
-	# TODO: remove collisions with [0, 0, 0, 0]
-	file.store_string(JSON.stringify(frame_data))
 
 
 ## --- Extras ---
+
+func save_frame_data():
+	var frame_data_file = "res://src/scenes/characters/framedata/%s" % CHARACTER_NAMES[current_char_idx].to_lower() + ".json"
+	var file = FileAccess.open(frame_data_file, FileAccess.WRITE)
+	# remove collisions with [0, 0, 0, 0]
+	for frame_data in char_frame_data:
+		var collision = frame_data.collision
+		remove_empty_collision(collision, "hurtboxes")
+		remove_empty_collision(collision, "hitboxes")
+		
+	file.store_string(JSON.stringify(char_frame_data))
+
+func remove_empty_collision(collision:Dictionary, type: String):
+	# type = "hurtboxes" or "hitboxes"
+	if type in collision:
+		for frame_box:Array in collision[type]:
+			var frame_box_idx = 0
+			while frame_box_idx < frame_box.size():
+				var specific_collision = frame_box[frame_box_idx]
+				if specific_collision == [0, 0, 0, 0]:
+					frame_box.remove_at(frame_box_idx)
+				else:
+					frame_box_idx += 1
 
 func _process(delta: float) -> void:
 	# Load collision when the animations is being played

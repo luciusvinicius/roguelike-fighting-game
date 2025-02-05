@@ -130,10 +130,26 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "New"
 
+[node name="SaveChangesButton" type="Button" parent="CharacterEditor"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = 260.0
+offset_right = 58.0
+offset_bottom = 291.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Save Changes"
+
 [connection signal="item_selected" from="CharacterSelect/Col/CharacterOptions" to="." method="_on_character_selected"]
 [connection signal="pressed" from="CharacterSelect/Col/LoadCharacter" to="." method="load_character"]
 [connection signal="item_selected" from="CharacterEditor/Row/Col/Animations" to="." method="_on_animations_item_selected"]
 [connection signal="item_selected" from="CharacterEditor/Row/Col/Frame" to="." method="_on_frame_item_selected"]
 [connection signal="pressed" from="CharacterEditor/Row/Col/PlayAnimation" to="." method="_on_play_animation_pressed"]
 [connection signal="pressed" from="CharacterEditor/Row/CollisionTabs/Hurtboxes/HurtboxesVBox/New" to="." method="_on_new_collision_pressed" binds= ["hurtboxes"]]
-[connection signal="pressed" from="CharacterEditor/Row/CollisionTabs/Hitboxes/HitboxesVBox/New" to="." method="_on_new_collision_pressed" binds= ["hurtboxes"]]
+[connection signal="pressed" from="CharacterEditor/Row/CollisionTabs/Hitboxes/HitboxesVBox/New" to="." method="_on_new_collision_pressed" binds= ["hitboxes"]]
+[connection signal="pressed" from="CharacterEditor/SaveChangesButton" to="." method="save_frame_data"]
