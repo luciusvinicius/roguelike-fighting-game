@@ -1,4 +1,4 @@
-[gd_scene load_steps=144 format=3 uid="uid://gcdaaahqu8oi"]
+[gd_scene load_steps=145 format=3 uid="uid://gcdaaahqu8oi"]
 
 [ext_resource type="PackedScene" uid="uid://co46uyfb46a6m" path="res://src/scenes/characters/frame_collider.tscn" id="1_57dbs"]
 [ext_resource type="Script" path="res://src/scenes/characters/character.gd" id="1_tv5vm"]
@@ -141,6 +141,7 @@
 [ext_resource type="Texture2D" uid="uid://d2kfkok58mk6c" path="res://imgs/characters/ciel/neutral_jump/cie17_003.png" id="122_6qn0t"]
 [ext_resource type="Texture2D" uid="uid://btq6bp28iymny" path="res://imgs/characters/ciel/neutral_jump/cie17_004.png" id="123_3fdpn"]
 [ext_resource type="Texture2D" uid="uid://b38uvwx8y6jre" path="res://imgs/characters/ciel/neutral_jump/cie17_005.png" id="124_daqfb"]
+[ext_resource type="PackedScene" uid="uid://b8oecsjsvvtq0" path="res://src/scenes/other/input_buffer.tscn" id="142_3o11h"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gopkg"]
 animations = [{
@@ -684,13 +685,15 @@ script = ExtResource("1_tv5vm")
 
 [node name="SpriteAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gopkg")
-animation = &"get_up"
+animation = &"idle"
 
 [node name="GroundDetector" type="CollisionShape2D" parent="."]
 position = Vector2(0, 72)
 shape = SubResource("SeparationRayShape2D_qcfq7")
 
 [node name="FrameCollider" parent="." instance=ExtResource("1_57dbs")]
+
+[node name="InputBuffer" parent="." instance=ExtResource("142_3o11h")]
 
 [node name="StateMachines" type="Node" parent="."]
 

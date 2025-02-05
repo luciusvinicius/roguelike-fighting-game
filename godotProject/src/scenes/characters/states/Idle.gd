@@ -2,9 +2,11 @@ extends State
 
 @onready var player: Player = owner
 @onready var vertical_state_machine = player.get_node("StateMachines").get_node("VerticalMovement")
+@onready var input_buffer: InputBuffer = player.get_node("InputBuffer")
 
 func _ready():
 	enum_name = CharacterStates.HORIZONTAL_STATES.IDLE
+	#input_buffer = player.input_buffer
 
 func enter(_args):
 	var vertical_state = vertical_state_machine.curr_state
@@ -20,7 +22,11 @@ func update(_delta):
 		return
 	
 	# Check dash
-	if Input.is_action_pressed("dash"):
+	#if Input.is_action_pressed("dash"):
+		#go_to_state(CharacterStates.HORIZONTAL_STATES.FOWARDDASH)
+		#return
+	
+	if input_buffer.is_action_pressed("dash"):
 		go_to_state(CharacterStates.HORIZONTAL_STATES.FOWARDDASH)
 		return
 	
@@ -31,6 +37,9 @@ func update(_delta):
 		go_to_state(CharacterStates.HORIZONTAL_STATES.MOVEFOWARD)
 	else:
 		go_to_state(CharacterStates.HORIZONTAL_STATES.MOVEBACKWARD)
+	
+	# Check attacks
+	
 
 func exit():
 	#player.default_frame_collider.disable()

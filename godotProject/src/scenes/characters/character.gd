@@ -1,13 +1,13 @@
-class_name Player
 extends CharacterBody2D
+class_name Player
 
-
-## --- Nodes ---
+### --- Nodes ---
 @onready var sprite_animation = $SpriteAnimation
 @onready var frame_collider = $FrameCollider
 @onready var state_machines = $StateMachines
+@onready var input_buffer: InputBuffer = $InputBuffer
 
-## --- Consts ---
+### --- Consts ---
 const FOWARD_SPEED := 150.0
 const BACKWARDS_SPEED := 100.0
 const BACKWARDS_BREAK_SPEED := 50.0
