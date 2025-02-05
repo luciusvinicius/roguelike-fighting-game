@@ -2,8 +2,7 @@ extends Node
 
 ### --- Consts ---
 const FRAME_BUFFER = 20
-const PRIORITY = [["jump", "dash"], [""]]
-const IGNORED_EVENTS = ["ui_text_skip_selection_for_next_occurrence"] # Events that still trigger for some reason even without the InputMap there.
+const PRIORITY = [["jump", "dash"], [""]] # 623 should have priority if related to 236
 const SPECIAL_INPUTS = [
 	{
 		"key": "236",
@@ -12,8 +11,16 @@ const SPECIAL_INPUTS = [
 	{
 		"key": "623",
 		"actions": [["right"], ["crouch"], ["crouch", "right"]]
+	},
+	{
+		"key": "214",
+		"actions": [["crouch"], ["crouch", "left"], ["left"]]
+	},
+	{
+		"key": "632146",
+		"actions": [["right"], ["crouch", "right"], ["crouch"], ["crouch", "left"], ["left"], ["right"]]
 	}
-]
+] # TODO: add charge moves
 
 ### --- Vars ---
 var buffer := [] 
@@ -63,23 +70,11 @@ func detect_specials() -> void:
 		for input in buffer:
 			if input.actions == special_actions[correct_actions]:
 				correct_actions += 1
-			#else: # Not sure if it is needed
-				#correct_actions = 0
 			
 			if correct_actions == special_actions.size():
 				buffer.insert(0, {"actions": [special_input.key], "frame": curr_frame}) # insert at beginning to not repeat the last input in the buffer.
 				break
 				
-			
-			
-			#for special_idx in range(special_actions.size()):
-				#if input.actions[special_idx] == special_actions[special_idx][correct_actions]:
-					#correct_actions += 1
-				#else:
-					#correct_actions = 0
-			#if correct_actions == special_actions.size():
-				#buffer.append({"action": ["236"], "frame": curr_frame})
-				#break
 		
 
 func get_pressed_input() -> Array:
@@ -123,30 +118,3 @@ func add_to_buffer(actions: Array) -> void:
 		
 		# They are literally the same (holding input)
 		previous_buffer_input.frame = curr_frame
-
-
-
-
-
-
-
-
-
-
-
-#func _unhandled_input(event: InputEvent) -> void:
-	#for action in InputMap.get_actions():
-		#if action in IGNORED_EVENTS: continue
-		#if event.is_action(action):
-			#print(action)
-			## Check if the previous buffer action was the same input. If true, then it should overwrite.
-			#
-			#var previous_buffer_input = buffer[-1] if buffer.size() != 0 else {"action": ""}
-			#if previous_buffer_input.action == action:
-				#previous_buffer_input.frame = curr_frame
-			#else:
-				#var buffer_input = {
-					#"action": action,
-					#"frame": curr_frame
-					#}
-				#buffer.append(buffer_input)
