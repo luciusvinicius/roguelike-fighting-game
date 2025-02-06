@@ -26,6 +26,7 @@ const SPECIAL_INPUTS = [
 ] # TODO: add charge moves
 
 ### --- Vars ---
+@onready var prefix_name = get_parent().id # "p1", "p2", etc...
 var motion_buffer := [] # Used to detect special moves.
 var action_buffer := [] # Used to apply action on the first frame possible.
 # [{"actions": ["jump/5A/etc..."], "frame": INTEGER}, {...}, {...}]. 
@@ -150,22 +151,22 @@ func _get_pressed_input() -> Array:
 	# God, imagine having the method Input.get_actions_pressed()
 	var pressed_inputs = []
 	
-	if Input.is_action_just_pressed("dash"):
-		pressed_inputs.append("dash")
+	if Input.is_action_just_pressed(prefix_name + "dash"):
+		pressed_inputs.append(prefix_name + "dash")
 	
-	var direction = Input.get_axis("jump", "crouch")
-	if direction < 0: pressed_inputs.append("jump")
-	elif direction > 0: pressed_inputs.append("crouch")
+	var direction = Input.get_axis(prefix_name + "jump", prefix_name + "crouch")
+	if direction < 0: pressed_inputs.append(prefix_name + "jump")
+	elif direction > 0: pressed_inputs.append(prefix_name + "crouch")
 	
-	direction = Input.get_axis("left", "right")
-	if direction < 0: pressed_inputs.append("left")
-	elif direction > 0: pressed_inputs.append("right")
+	direction = Input.get_axis(prefix_name + "left", prefix_name + "right")
+	if direction < 0: pressed_inputs.append(prefix_name + "left")
+	elif direction > 0: pressed_inputs.append(prefix_name + "right")
 	
-	if Input.is_action_just_pressed("a"):
+	if Input.is_action_just_pressed(prefix_name + "a"):
 		pressed_inputs.append("a")
-	if Input.is_action_just_pressed("b"):
+	if Input.is_action_just_pressed(prefix_name + "b"):
 		pressed_inputs.append("b")
-	if Input.is_action_just_pressed("c"):
+	if Input.is_action_just_pressed(prefix_name + "c"):
 		pressed_inputs.append("c")
 	return pressed_inputs
 

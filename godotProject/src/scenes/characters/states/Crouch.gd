@@ -15,7 +15,7 @@ func enter(_args):
 	player.play_animation("crouch_startup", 2)
 
 func update(_delta):
-	if Input.is_action_just_released("crouch") or Input.is_action_pressed("jump"):
+	if Input.is_action_just_released(player.id + "crouch") or Input.is_action_pressed(player.id + "jump"):
 		go_to_state(CharacterStates.VERTICAL_STATES.NEUTRAL)
 
 func exit():

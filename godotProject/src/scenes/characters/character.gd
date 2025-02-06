@@ -21,6 +21,7 @@ const GRAVITY := 980.0
 
 ## --- Vars ---
 @export_enum("Left:-1", "Right:1") var start_facing_direction = 1
+@export var id := "p1"
 
 var char_name = "Ciel"
 var blocking = [] # ["low"], ["high"], ["low", "high"]?

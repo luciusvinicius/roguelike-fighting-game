@@ -27,12 +27,12 @@ func update(_delta):
 		return
 
 	# Check dash
-	if input_buffer.is_action_pressed("dash"):
+	if input_buffer.is_action_pressed(player.id + "dash"):
 		go_to_state(CharacterStates.HORIZONTAL_STATES.FOWARDDASH)
 		return
 	
 	# Check walking
-	var direction = Input.get_axis("left", "right")
+	var direction = Input.get_axis(player.id + "left", player.id + "right")
 	if direction == 0: return
 	if direction == player.get_facing_direction():
 		go_to_state(CharacterStates.HORIZONTAL_STATES.MOVEFOWARD)

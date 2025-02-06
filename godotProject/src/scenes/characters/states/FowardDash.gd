@@ -23,7 +23,7 @@ func update(_delta):
 	var is_attacking = condition_state_machine.curr_state.enum_name == CharacterStates.CONDITIONS.ATTACKING
 	if is_attacking: has_attacked = true
 	
-	var direction = Input.get_axis("left", "right") if not is_attacking else 0
+	var direction = Input.get_axis(player.id + "left", player.id + "right") if not is_attacking else 0
 	
 	# Play correct animation
 	if animation_phase == "startup":
@@ -63,7 +63,7 @@ func update(_delta):
 	if direction != 0 and direction != player.get_facing_direction():
 		go_to_state(CharacterStates.HORIZONTAL_STATES.MOVEBACKWARD)
 	
-	dash_holded = Input.is_action_pressed("dash")
+	dash_holded = Input.is_action_pressed(player.id + "dash")
 
 func _on_player_animation_looped():
 	if _is_current_state():

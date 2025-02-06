@@ -22,9 +22,9 @@ func update(_delta):
 	if horizontal_state_machine.curr_state.enum_name in [CharacterStates.HORIZONTAL_STATES.BACKDASH]:
 		return
 	
-	if Input.is_action_pressed("jump"):
+	if Input.is_action_pressed(player.id + "jump"):
 		go_to_state(CharacterStates.VERTICAL_STATES.JUMP)
-	elif Input.is_action_pressed("crouch"):
+	elif Input.is_action_pressed(player.id + "crouch"):
 		go_to_state(CharacterStates.VERTICAL_STATES.CROUCH)
 
 func exit():
