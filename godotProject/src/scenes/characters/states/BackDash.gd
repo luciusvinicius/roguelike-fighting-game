@@ -20,6 +20,7 @@ func exit():
 	player.velocity.x = 0
 
 func _on_player_animation_looped():
-	match player.sprite_animation.animation:
-		"backdash":
-			go_to_state(CharacterStates.HORIZONTAL_STATES.IDLE)
+	if _is_current_state():
+		match player.sprite_animation.animation:
+			"backdash":
+				go_to_state(CharacterStates.HORIZONTAL_STATES.IDLE)

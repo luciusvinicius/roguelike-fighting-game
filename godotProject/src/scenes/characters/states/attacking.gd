@@ -21,6 +21,8 @@ func update(_delta):
 
 
 func _on_player_animation_looped() -> void:
-	# TODO: Maybe not apply no moves like sex kicks?
-	player.reset_animation_priority()
-	go_to_state(CharacterStates.CONDITIONS.NOTHING)
+	# Only reset if is attacking lol
+	if _is_current_state():
+		# TODO: Maybe not apply no moves like sex kicks?
+		player.reset_animation_priority()
+		go_to_state(CharacterStates.CONDITIONS.NOTHING)

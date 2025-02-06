@@ -48,6 +48,13 @@ func exit():
 
 
 func _on_player_animation_looped():
-	# After landing start idle
-	if "landing" in player.sprite_animation.animation:
-		player.reset_animation_priority()
+	if _is_current_state():
+		# After landing start idle
+		if "landing" in player.sprite_animation.animation: # neutral_landing, foward, etc...
+			player.reset_animation_priority()
+		
+		match player.sprite_animation.animation:
+			"landing":
+				player.reset_animation_priority()
+			"get_up":
+				player.reset_animation_priority()

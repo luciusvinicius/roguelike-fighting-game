@@ -2,7 +2,8 @@ extends State
 
 ### --- Nodes ---
 @onready var player: Player = owner
-@onready var vertical_state_machine = player.get_node("StateMachines").get_node("VerticalMovement")
+@onready var horizontal_state_machine: StateMachine = player.get_node("StateMachines").get_node("HorizontalMovement")
+@onready var vertical_state_machine: StateMachine = player.get_node("StateMachines").get_node("VerticalMovement")
 @onready var input_buffer: InputBuffer = player.get_node("InputBuffer")
 
 ### --- Logic ---
@@ -17,6 +18,10 @@ func _ready():
 
 func update(_delta):
 	
+	# Cannot perform attacks while backdashing.
+	if horizontal_state_machine.curr_state.enum_name == CharacterStates.HORIZONTAL_STATES.BACKDASH:
+		return
+		
 	# Process Attack inputs
 	var attack = input_buffer.get_attack()
 	if attack != "":
@@ -36,6 +41,7 @@ func exit():
 
 
 func _on_player_animation_looped():
-	# After landing start idle
-	if "5A" in player.sprite_animation.animation:
-		player.reset_animation_priority()
+	if _is_current_state():
+		# After landing start idle
+		if "5A" in player.sprite_animation.animation:
+			player.reset_animation_priority()

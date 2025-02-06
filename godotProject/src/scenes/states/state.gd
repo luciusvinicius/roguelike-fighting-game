@@ -19,3 +19,6 @@ func exit():
 
 func go_to_state(new_state, args = []):
 	state_exited_to.emit(new_state, args)
+	
+func _is_current_state() -> bool:
+	return get_parent().curr_state.enum_name == enum_name

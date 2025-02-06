@@ -1,10 +1,14 @@
 extends PlayerState
 
-## --- Vars ---
+### --- Nodes ---
+@onready var condition_state_machine: StateMachine = player.get_node("StateMachines").get_node("Conditions")
+
+
+### --- Vars ---
 var dash_holded := true
 var animation_phase := "startup"
 
-## --- Logic ---
+### --- Logic ---
 
 func _ready():
 	enum_name = CharacterStates.HORIZONTAL_STATES.FOWARDDASH
@@ -15,7 +19,9 @@ func enter(args):
 	dash_holded = true
 
 func update(_delta):
-	var direction = Input.get_axis("left", "right")
+	var is_attacking = condition_state_machine.curr_state.enum_name == CharacterStates.CONDITIONS.ATTACKING
+	
+	var direction = Input.get_axis("left", "right") if not is_attacking else 0
 	
 	# Play correct animation
 	if animation_phase == "startup":
@@ -27,14 +33,15 @@ func update(_delta):
 	if vertical_state_machine.curr_state.enum_name in [CharacterStates.VERTICAL_STATES.JUMP]:
 		return
 	
-	# Keep moving foward
-	if dash_holded and animation_phase != "break":
+	# Keep moving foward. If attacking, keeps dash momentum tho.
+	if dash_holded and animation_phase != "break" and not is_attacking:
 		player.velocity.x = player.FOWARD_DASH_SPEED
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, player.FOWARD_BREAK_SPEED)
 		animation_phase = "break"
 		player.reset_animation_priority()
-		player.play_animation("fdash_break", 0)
+		if not is_attacking:
+			player.play_animation("fdash_break", 0)
 		
 		
 	player.move_and_slide()
@@ -52,13 +59,14 @@ func update(_delta):
 	dash_holded = Input.is_action_pressed("dash")
 
 func _on_player_animation_looped():
-	match player.sprite_animation.animation:
-		"fdash_startup":
-			animation_phase = "loop"
-			frame_data = player.play_animation("fdash_loop", 1)
-			
-		"fdash_break":
-			animation_phase = "break"
-			go_to_state(CharacterStates.HORIZONTAL_STATES.IDLE)
-			player.reset_animation_priority()
-			player.play_animation("idle", 0)
+	if _is_current_state():
+		match player.sprite_animation.animation:
+			"fdash_startup":
+				animation_phase = "loop"
+				frame_data = player.play_animation("fdash_loop", 1)
+				
+			"fdash_break":
+				animation_phase = "break"
+				go_to_state(CharacterStates.HORIZONTAL_STATES.IDLE)
+				player.reset_animation_priority()
+				player.play_animation("idle", 0)

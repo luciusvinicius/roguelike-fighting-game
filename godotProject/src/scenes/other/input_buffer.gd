@@ -114,7 +114,6 @@ func _delete_previous_buffers(buffer: Array, frame_limit: int) -> void:
 	var input_idx = 0
 	for input in buffer:
 		if input.frame < curr_frame - frame_limit:
-			print("removed ", input)
 			buffer.pop_at(input_idx)
 		else:
 			input_idx += 1

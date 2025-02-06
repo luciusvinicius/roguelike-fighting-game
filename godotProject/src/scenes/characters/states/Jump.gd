@@ -47,9 +47,11 @@ func update(delta):
 		
 	player.move_and_slide()
 	
+	# Finished jumping
 	if player.is_on_floor() and jumping:
 		player.reset_animation_priority()
 		player.play_animation("%s_landing" % jump_direction, 1)
+		player.move_and_slide() # One extra just to fix collision
 		go_to_state(CharacterStates.VERTICAL_STATES.NEUTRAL)
 
 func exit():
@@ -57,12 +59,13 @@ func exit():
 
 
 func _on_player_animation_looped():
-	if "jump_start" in player.sprite_animation.animation:
-		# Jumps
-		player.play_animation("%s_jump_loop" % jump_direction, 2)
-		player.velocity.y = - player.JUMP_VELOCITY
-		player.velocity.x = starting_velocity.x
-		jumping = true
-	elif "falling_start" in player.sprite_animation.animation:
-		# Falls
-		player.play_animation("%s_falling_loop" % jump_direction, 2)
+	if _is_current_state():
+		if "jump_start" in player.sprite_animation.animation:
+			# Jumps
+			player.play_animation("%s_jump_loop" % jump_direction, 2)
+			player.velocity.y = - player.JUMP_VELOCITY
+			player.velocity.x = starting_velocity.x
+			jumping = true
+		elif "falling_start" in player.sprite_animation.animation:
+			# Falls
+			player.play_animation("%s_falling_loop" % jump_direction, 2)

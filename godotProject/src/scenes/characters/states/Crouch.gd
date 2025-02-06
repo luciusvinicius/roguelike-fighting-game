@@ -20,9 +20,10 @@ func exit():
 
 
 func _on_player_animation_looped():
-	match player.sprite_animation.animation:
-		"crouch_startup":
-			player.play_animation("crouch_loop", 2)
-		"get_up":
-			player.reset_animation_priority()
-			player.play_animation("idle", 0)
+	if _is_current_state():
+		match player.sprite_animation.animation:
+			"crouch_startup":
+				player.play_animation("crouch_loop", 2)
+			"get_up":
+				player.reset_animation_priority()
+				player.play_animation("idle", 0)

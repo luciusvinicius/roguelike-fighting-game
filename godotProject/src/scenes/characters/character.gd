@@ -35,6 +35,7 @@ func _ready():
 	
 	# Get Framedata file
 	frame_data = load_frame_data()
+	move_and_slide() # Fix initial "not on floor"
 
 # Separated function because it is used in the plugin
 func load_frame_data() -> Variant:
@@ -45,7 +46,9 @@ func load_frame_data() -> Variant:
 # Animations
 func play_animation(animation_name: String, priority: int) -> Dictionary:
 	"""Given a certain priority, play animation. Returns the framedata, if used."""
+	#print("Play animation: ", animation_name, " / Priority: ", priority)
 	if priority < current_animation_priority: return {}
+	#print("Animation Played")
 	sprite_animation.play(animation_name)
 	current_animation_priority = priority
 	
@@ -63,6 +66,11 @@ func stop_animation() -> void:
 
 func reset_animation_priority() -> void:
 	current_animation_priority = 0
+
+func _on_sprite_animation_frame_changed() -> void:
+	var animation_name = sprite_animation.animation
+	var animation_frame_data = get_frame_data_by_name(animation_name)
+	frame_collider.setup_collisions(animation_frame_data, sprite_animation.frame)
 
 # Other
 func get_facing_direction() -> int:
