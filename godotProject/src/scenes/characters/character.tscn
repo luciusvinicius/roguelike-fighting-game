@@ -657,7 +657,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"neutral_jump_start",
-"speed": 24.0
+"speed": 60.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -680,19 +680,21 @@ animations = [{
 "speed": 24.0
 }]
 
-[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_qcfq7"]
-length = 16.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bajp1"]
+size = Vector2(40, 2)
 
 [node name="Character" type="CharacterBody2D"]
 script = ExtResource("1_tv5vm")
 
 [node name="SpriteAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gopkg")
-animation = &"5A"
+animation = &"neutral_jump_start"
+frame = 5
+frame_progress = 0.0691977
 
 [node name="GroundDetector" type="CollisionShape2D" parent="."]
-position = Vector2(0, 72)
-shape = SubResource("SeparationRayShape2D_qcfq7")
+position = Vector2(0, 88)
+shape = SubResource("RectangleShape2D_bajp1")
 
 [node name="FrameCollider" parent="." instance=ExtResource("1_57dbs")]
 

@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cqygjtm58neuc" path="res://imgs/hud/combat/health_bar/progress.png" id="3_3vh7x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w4rng"]
-size = Vector2(2685, 200)
+size = Vector2(1382.5, 200)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h8wm7"]
 size = Vector2(20, 458)
@@ -38,7 +38,7 @@ debug_color = Color(0.619608, 0.380392, 0.952941, 0.419608)
 [node name="LeftLimit" type="StaticBody2D" parent="LimitWalls"]
 
 [node name="LeftLimitWall" type="CollisionShape2D" parent="LimitWalls/LeftLimit"]
-position = Vector2(0, 219)
+position = Vector2(0, 240)
 shape = SubResource("RectangleShape2D_h8wm7")
 debug_color = Color(0.618966, 0.378957, 0.952869, 0.42)
 
@@ -60,6 +60,7 @@ metadata/_edit_lock_ = true
 [node name="Player2" parent="." instance=ExtResource("1_h4h5x")]
 position = Vector2(696, 360)
 start_facing_direction = -1
+id = "p2"
 metadata/_edit_lock_ = true
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]

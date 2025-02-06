@@ -15,8 +15,8 @@ const FOWARD_DASH_SPEED := 450.0
 const FOWARD_BREAK_SPEED := 25.0
 const BACK_DASH_SPEED := 250.0
 
-const JUMP_VELOCITY := 450.0
-const GRAVITY := 980.0
+const JUMP_VELOCITY := 450.0 * 1.5
+const GRAVITY := 980.0 * 2
 
 
 ## --- Vars ---
