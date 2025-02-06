@@ -40,7 +40,7 @@ func update(_delta):
 		go_to_state(CharacterStates.HORIZONTAL_STATES.MOVEFOWARD)
 		return
 	
-	player.velocity.x = -player.BACKWARDS_SPEED
+	player.velocity.x = -player.BACKWARDS_SPEED * player.get_facing_direction()
 	
 	player.move_and_slide()
 	

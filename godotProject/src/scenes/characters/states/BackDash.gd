@@ -13,7 +13,7 @@ func enter(_args):
 
 func update(_delta):
 	player.play_animation("backdash", 0)
-	player.velocity.x = -player.BACK_DASH_SPEED
+	player.velocity.x = -player.BACK_DASH_SPEED * player.get_facing_direction()
 	player.move_and_slide()
 
 func exit():

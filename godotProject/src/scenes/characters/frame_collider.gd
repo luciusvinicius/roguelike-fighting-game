@@ -24,13 +24,14 @@ func setup(_framedata: Variant) -> void:
 		#hit_type
 	reset_collision()
 
-func setup_collisions(fd: Variant, idx: int):
+func setup_collisions(fd: Variant, idx: int, direction := 1):
+	# Direction = -1 (left/flipped) or 1 (right)
 	reset_collision()
 	var collision = fd.collision
 	if "hurtboxes" in collision:
-		create_hurtboxes(collision["hurtboxes"][idx])
+		create_hurtboxes(collision["hurtboxes"][idx], direction)
 	if "hitboxes" in collision:
-		create_hitboxes(collision["hitboxes"][idx])
+		create_hitboxes(collision["hitboxes"][idx], direction)
 
 func reset_collision() -> void:
 	"""Remove all hitboxes and hurtboxes."""
@@ -39,18 +40,18 @@ func reset_collision() -> void:
 	for hurtbox in hurtboxes.get_children():
 		hurtbox.queue_free()
 
-func create_hurtboxes(hboxes: Array) -> void:
+func create_hurtboxes(hboxes: Array, direction: int) -> void:
 	"""Create the hurtboxes of a specific frame given by [pos_x, pos_y, width, height]"""
-	create_collisions(hboxes, "hurtbox")
+	create_collisions(hboxes, "hurtbox", direction)
 
-func create_hitboxes(hboxes: Array) -> void:
+func create_hitboxes(hboxes: Array, direction: int) -> void:
 	"""Create the hitboxes of a specific frame given by [pos_x, pos_y, width, height]"""
-	create_collisions(hboxes, "hitbox")
+	create_collisions(hboxes, "hitbox", direction)
 
-func create_collisions(collisions: Array, type) -> void:
+func create_collisions(collisions: Array, type, direction) -> void:
 	"""Create associated hitboxes or hurtboxes, given by type ("hurtbox"; "hitbox")"""
 	for collision in collisions:
-		var pos_x: float =  collision[0]
+		var pos_x: float =  collision[0] * direction
 		var pos_y: float =  collision[1]
 		var width: float =  collision[2]
 		var height: float = collision[3]

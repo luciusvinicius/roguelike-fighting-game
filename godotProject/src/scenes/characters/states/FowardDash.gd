@@ -37,9 +37,9 @@ func update(_delta):
 	
 	# Keep moving foward. If attacking, keeps dash momentum tho.
 	if dash_holded and animation_phase != "break" and not is_attacking:
-		player.velocity.x = player.FOWARD_DASH_SPEED
+		player.velocity.x = player.FOWARD_DASH_SPEED * player.get_facing_direction()
 	else:
-		player.velocity.x = move_toward(player.velocity.x, 0, player.FOWARD_BREAK_SPEED)
+		player.velocity.x = move_toward(player.velocity.x, 0, player.FOWARD_BREAK_SPEED) * player.get_facing_direction()
 		
 		animation_phase = "break"
 		#player.reset_animation_priority(ss)
