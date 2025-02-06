@@ -1,13 +1,17 @@
 extends State
 
-## --- Vars ---
+### --- Nodes ---
 @onready var player: Player = owner
+
+### --- Vars ---
 var blocking_direction = ["low"]
 
+### --- Logic ---
 func _ready():
 	enum_name = CharacterStates.VERTICAL_STATES.CROUCH
 
 func enter(_args):
+	# Only play animation
 	player.play_animation("crouch_startup", 2)
 
 func update(_delta):

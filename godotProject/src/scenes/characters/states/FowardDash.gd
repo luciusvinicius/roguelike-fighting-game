@@ -7,6 +7,7 @@ extends PlayerState
 ### --- Vars ---
 var dash_holded := true
 var animation_phase := "startup"
+var has_attacked := false # used only to know if should do the "dash_break" at the end
 
 ### --- Logic ---
 
@@ -20,6 +21,7 @@ func enter(args):
 
 func update(_delta):
 	var is_attacking = condition_state_machine.curr_state.enum_name == CharacterStates.CONDITIONS.ATTACKING
+	if is_attacking: has_attacked = true
 	
 	var direction = Input.get_axis("left", "right") if not is_attacking else 0
 	
@@ -27,7 +29,7 @@ func update(_delta):
 	if animation_phase == "startup":
 		player.play_animation("fdash_startup", 0)
 	elif animation_phase == "loop":
-		player.play_animation("fdash_loop", 1)
+		player.play_animation("fdash_loop", 0)
 	
 	# Ignore other inputs if jumping
 	if vertical_state_machine.curr_state.enum_name in [CharacterStates.VERTICAL_STATES.JUMP]:
@@ -38,11 +40,16 @@ func update(_delta):
 		player.velocity.x = player.FOWARD_DASH_SPEED
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, player.FOWARD_BREAK_SPEED)
-		animation_phase = "break"
-		player.reset_animation_priority()
-		if not is_attacking:
-			player.play_animation("fdash_break", 0)
 		
+		animation_phase = "break"
+		#player.reset_animation_priority(ss)
+		#if not is_attacking:
+		player.play_animation("fdash_break", 0)
+	
+	if player.velocity.x == 0:
+		go_to_state(CharacterStates.HORIZONTAL_STATES.IDLE)
+		#player.reset_animation_priority()
+		player.play_animation("idle", 0)
 		
 	player.move_and_slide()
 	
@@ -63,10 +70,10 @@ func _on_player_animation_looped():
 		match player.sprite_animation.animation:
 			"fdash_startup":
 				animation_phase = "loop"
-				frame_data = player.play_animation("fdash_loop", 1)
+				frame_data = player.play_animation("fdash_loop", 0)
 				
 			"fdash_break":
 				animation_phase = "break"
 				go_to_state(CharacterStates.HORIZONTAL_STATES.IDLE)
-				player.reset_animation_priority()
+				#player.reset_animation_priority()
 				player.play_animation("idle", 0)

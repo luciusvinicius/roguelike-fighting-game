@@ -14,15 +14,16 @@ func _ready():
 
 func enter(args):
 	attack_animation = args[0]
+	print("-------entered attack-----")
 
 func update(_delta):
-	print("Attacking")
-	player.play_animation(attack_animation, 1)
+	player.play_animation(attack_animation, 2)
 
 
 func _on_player_animation_looped() -> void:
 	# Only reset if is attacking lol
 	if _is_current_state():
 		# TODO: Maybe not apply no moves like sex kicks?
+		print("------- WHERE LOOP -------")
 		player.reset_animation_priority()
 		go_to_state(CharacterStates.CONDITIONS.NOTHING)
