@@ -35,8 +35,8 @@ var curr_frame := 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta: float) -> void:
-	# print("Motion Buffer: ", motion_buffer)
-	print("Action Buffer: ", action_buffer)
+	#print("Motion Buffer: ", motion_buffer)
+	#print("Action Buffer: ", action_buffer)
 	
 	var current_input = _get_pressed_input()
 	_add_to_buffer(current_input, motion_buffer)
@@ -66,7 +66,9 @@ func get_axis(action1: String, action2: String, remove_from_buffer := true) -> i
 		if action1 in input.actions:
 			total_axis -= 1
 			if remove_from_buffer:
-				action_buffer.remove_at(action_buffer_idx)
+				# Should only remove if they are the only input (eg. ["left"] instead of ["left", "dash"])
+				if [action1] == input.actions:
+					action_buffer.remove_at(action_buffer_idx)
 			break
 		action_buffer_idx += 1
 	
@@ -75,7 +77,9 @@ func get_axis(action1: String, action2: String, remove_from_buffer := true) -> i
 		if action2 in input.actions:
 			total_axis += 1
 			if remove_from_buffer:
-				action_buffer.remove_at(action_buffer_idx)
+				# Should only remove if they are the only input (eg. ["left"] instead of ["left", "dash"])
+				if [action2] == input.actions:
+					action_buffer.remove_at(action_buffer_idx)
 			break
 		action_buffer_idx += 1
 	
@@ -110,6 +114,7 @@ func _delete_previous_buffers(buffer: Array, frame_limit: int) -> void:
 	var input_idx = 0
 	for input in buffer:
 		if input.frame < curr_frame - frame_limit:
+			print("removed ", input)
 			buffer.pop_at(input_idx)
 		else:
 			input_idx += 1
@@ -168,6 +173,8 @@ func _get_pressed_input() -> Array:
 func _add_to_buffer(actions: Array, buffer: Array) -> void:
 	"""Adds input to motion_buffer, if they exist. If it is the same input as before, increase its frame (holding inputs)."""
 	if actions.size() == 0: return
+	if buffer == action_buffer:
+		pass
 	var previous_buffer_input = buffer[-1] if buffer.size() != 0 else {"actions": []}
 	# Check if the inputs pressed now are equal to the previous (hold)
 	var new_buffer_input = {

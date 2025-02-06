@@ -3,6 +3,7 @@ extends State
 ## --- Vars ---
 @onready var player: Player = owner
 @onready var vertical_state_machine = player.get_node("StateMachines").get_node("VerticalMovement")
+@onready var condition_state_machine: StateMachine = player.get_node("StateMachines").get_node("Conditions")
 @onready var input_buffer: InputBuffer = player.get_node("InputBuffer")
 
 # Called when the node enters the scene tree for the first time.
@@ -15,6 +16,11 @@ func enter(_args):
 
 func update(_delta):
 	
+	## Ignore horizontal inputs if attacking
+	if condition_state_machine.curr_state.enum_name == CharacterStates.CONDITIONS.ATTACKING:
+		go_to_state(CharacterStates.HORIZONTAL_STATES.IDLE)
+		return
+		
 	player.play_animation("move_backward", 1)
 	
 	# Ignore other inputs if crouching or jumping

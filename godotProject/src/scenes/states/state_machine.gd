@@ -1,5 +1,6 @@
 @tool
 extends Node
+class_name StateMachine
 
 ## --- Vars ---
 var curr_state : State # Starts with first child node
@@ -38,7 +39,7 @@ func exit_state(new_state : int, args) -> void:
 			if state.enum_name == new_state:
 				new_curr_state = state
 				break
-				
+		assert(new_curr_state != null, "New State not found! (maybe forgot to setup 'enum_name' variable on '_ready()'?)")
 		curr_state = new_curr_state
 		if DEBUG:
 			print("DEBUG - Entering State: ", new_curr_state)

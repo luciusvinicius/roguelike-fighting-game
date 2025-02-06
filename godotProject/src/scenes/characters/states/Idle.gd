@@ -1,7 +1,8 @@
 extends State
 
 @onready var player: Player = owner
-@onready var vertical_state_machine = player.get_node("StateMachines").get_node("VerticalMovement")
+@onready var vertical_state_machine: StateMachine = player.get_node("StateMachines").get_node("VerticalMovement")
+@onready var condition_state_machine: StateMachine = player.get_node("StateMachines").get_node("Conditions")
 @onready var input_buffer: InputBuffer = player.get_node("InputBuffer")
 
 func _ready():
@@ -21,11 +22,11 @@ func update(_delta):
 	if vertical_state_machine.curr_state.enum_name == CharacterStates.VERTICAL_STATES.CROUCH:
 		return
 	
+	# Ignore horizontal inputs if attacking
+	if condition_state_machine.curr_state.enum_name == CharacterStates.CONDITIONS.ATTACKING:
+		return
+
 	# Check dash
-	#if Input.is_action_pressed("dash"):
-		#go_to_state(CharacterStates.HORIZONTAL_STATES.FOWARDDASH)
-		#return
-	
 	if input_buffer.is_action_pressed("dash"):
 		go_to_state(CharacterStates.HORIZONTAL_STATES.FOWARDDASH)
 		return

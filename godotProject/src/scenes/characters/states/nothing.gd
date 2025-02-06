@@ -25,7 +25,8 @@ func update(_delta):
 			# TODO: fazer algo do tipo adicionar um "j" no início. Tomar cuidado pois pode haver "2A"
 			pass
 		# TODO: Mudar estado para "Attacking"
-		player.play_animation(attack, 1) # TODO: Bug. Aparentemente as colisões só funfam se tiver spamando o botão. Acredito que seja porque o "play" não acontece a cada frame.
+		# Go to attacking state with given animation
+		go_to_state(CharacterStates.CONDITIONS.ATTACKING, [attack])
 
 	
 

@@ -172,7 +172,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"5A",
-"speed": 12.0
+"speed": 24.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -745,4 +745,5 @@ script = ExtResource("145_eux26")
 [connection signal="animation_looped" from="SpriteAnimation" to="StateMachines/VerticalMovement/Crouch" method="_on_player_animation_looped"]
 [connection signal="animation_looped" from="SpriteAnimation" to="StateMachines/VerticalMovement/Jump" method="_on_player_animation_looped"]
 [connection signal="animation_looped" from="SpriteAnimation" to="StateMachines/Conditions/Nothing" method="_on_player_animation_looped"]
+[connection signal="animation_looped" from="SpriteAnimation" to="StateMachines/Conditions/Attacking" method="_on_player_animation_looped"]
 [connection signal="frame_changed" from="SpriteAnimation" to="StateMachines/HorizontalMovement/FowardDash" method="_on_animation_frame_changed"]
