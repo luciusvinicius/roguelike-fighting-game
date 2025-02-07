@@ -26,3 +26,5 @@ script = ExtResource("2_ulene")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes"]
 shape = SubResource("RectangleShape2D_njeho")
 debug_color = Color(0.959021, 0.187231, 0.203719, 0.419608)
+
+[node name="HitAudio" type="AudioStreamPlayer" parent="."]

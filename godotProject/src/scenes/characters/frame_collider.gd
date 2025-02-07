@@ -1,4 +1,5 @@
 extends Node2D
+class_name FrameCollider
 
 ## --- Signal ---
 signal counter_hit

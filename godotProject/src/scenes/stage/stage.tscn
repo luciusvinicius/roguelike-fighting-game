@@ -1,13 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://dnsmqrmv5xc00"]
+[gd_scene load_steps=13 format=3 uid="uid://dnsmqrmv5xc00"]
 
-[ext_resource type="Texture2D" uid="uid://di5uo6yek3q43" path="res://imgs/hud/combat/health_bar/under.png" id="1_0mfgf"]
-[ext_resource type="Texture2D" uid="uid://cfvjtlawbs8om" path="res://imgs/stages/destroyed_city/ground.png" id="1_3hkj2"]
+[ext_resource type="Texture2D" uid="uid://di5uo6yek3q43" path="res://assets/imgs/hud/combat/health_bar/under.png" id="1_0mfgf"]
+[ext_resource type="Texture2D" uid="uid://cfvjtlawbs8om" path="res://assets/imgs/stages/destroyed_city/ground.png" id="1_3hkj2"]
 [ext_resource type="PackedScene" uid="uid://gcdaaahqu8oi" path="res://src/scenes/characters/character.tscn" id="1_h4h5x"]
 [ext_resource type="Script" path="res://src/scenes/stage/base_stage.gd" id="1_q8rom"]
-[ext_resource type="Texture2D" uid="uid://ch6ya5ose4h4j" path="res://imgs/hud/combat/health_bar/over.png" id="2_tiuvj"]
-[ext_resource type="Texture2D" uid="uid://b1t3r68ajgid3" path="res://imgs/stages/destroyed_city/bg.png" id="2_w8chn"]
-[ext_resource type="Texture2D" uid="uid://cqygjtm58neuc" path="res://imgs/hud/combat/health_bar/progress.png" id="3_3vh7x"]
+[ext_resource type="Texture2D" uid="uid://ch6ya5ose4h4j" path="res://assets/imgs/hud/combat/health_bar/over.png" id="2_tiuvj"]
+[ext_resource type="Texture2D" uid="uid://b1t3r68ajgid3" path="res://assets/imgs/stages/destroyed_city/bg.png" id="2_w8chn"]
+[ext_resource type="Texture2D" uid="uid://cqygjtm58neuc" path="res://assets/imgs/hud/combat/health_bar/progress.png" id="3_3vh7x"]
 [ext_resource type="Script" path="res://src/scenes/stage/camera.gd" id="3_aoekv"]
+[ext_resource type="Script" path="res://src/scenes/characters/framedata/collision_updater.gd" id="5_abxk8"]
 [ext_resource type="Script" path="res://src/scenes/stage/health_bar.gd" id="9_wutsa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w4rng"]
@@ -69,6 +70,11 @@ start_facing_direction = -1
 enemy = NodePath("../Player1")
 id = "p2"
 metadata/_edit_lock_ = true
+
+[node name="CollisionUpdater" type="Node" parent="." node_paths=PackedStringArray("player1", "player2")]
+script = ExtResource("5_abxk8")
+player1 = NodePath("../Player1")
+player2 = NodePath("../Player2")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

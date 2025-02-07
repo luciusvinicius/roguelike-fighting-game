@@ -4,8 +4,16 @@ class_name Hitboxes
 ### --- Nodes ---
 @onready var player : Player
 @onready var hurtboxes: Area2D = $"../Hurtboxes"
+@onready var hit_audio: AudioStreamPlayer = $"../HitAudio"
+
+### --- Consts ---
+const SOUND_EFFECTS = {
+	"light_attack": preload("res://assets/sounds/combat/light_attack.ogg")
+}
 
 ### --- Vars ---
+
+var framedata : Dictionary
 var damage := 0.0
 var knockback := 0.0
 var scale_start := 100.0 # in %
@@ -24,15 +32,16 @@ func _ready():
 	if possible_player is Player:
 		player = get_parent().get_parent()
 
-func setup_attack(framedata: Dictionary) -> void:
+func setup_attack(fd: Dictionary) -> void:
 	"""Given a framedata, change the global variables."""
-	assert("hitboxes" in framedata.collision, "Setup attack for a framedata without hitboxes.")
+	assert("hitboxes" in fd.collision, "Setup attack for a framedata without hitboxes.")
+	framedata = fd
 	damage = framedata.damage[0] # TODO
 	knockback = framedata.knockback
 	scale_start = framedata.scale_start
 	hard_knockdown = framedata.hard_knockdown
 
-func detect_hurtboxes() -> void:
+func apply_hitboxes() -> void:
 	"""Detect if hurtboxes of ANOTHER player intersected the hitboxes"""
 	var enemy_player = player.enemy
 	var enemy_collider = enemy_player.get_node("FrameCollider")
@@ -43,11 +52,23 @@ func detect_hurtboxes() -> void:
 	for hurtbox in enemy_hurtboxes.get_children():
 		for hitbox in get_children():
 			if are_intersecting(hitbox as CollisionShape2D, hurtbox as CollisionShape2D):
+				# Play sound effect
+				hit_audio.stream = SOUND_EFFECTS[framedata.hit_sound_effect]
+				hit_audio.pitch_scale = randf_range(0.8, 1.2)
+				hit_audio.play()
+				
+				# Apply hit
 				enemy_player.take_damage(damage, knockback, scale_start)
 				ignore_same_hitbox = true
-				return # Only 1 instance of damage
+				return # Avoid multiple hits in a single frame
 	
-	# TODO: add hitbox to hitbox comparation to identify clash.
+	for e_hitbox in enemy_hitboxes.get_children():
+		for hitbox in get_children():
+			if are_intersecting(hitbox as CollisionShape2D, e_hitbox as CollisionShape2D):
+				# TODO: Apply Clash
+				
+				return # Avoid multiple hits in a single frame
+		
 
 func are_intersecting(colA: CollisionShape2D, colB: CollisionShape2D) -> bool:
 	"""Determines if two collision shapes (rectangles) are intersecting."""
@@ -70,10 +91,10 @@ func are_intersecting(colA: CollisionShape2D, colB: CollisionShape2D) -> bool:
 	return (a_right > b_left and a_left < b_right and
 			a_bottom > b_top and a_top < b_bottom)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	# Shouldn't detect collisions on the customization
+func process(_delta: float) -> void:
+	"""Works as the '_process()', however called by the CollisionUpdater."""
+	
+	# Shouldn't detect collisions on the customization scene
 	if player == null: return
 	
 	# If hitboxes spends 1 frame without an attack, remove the "ignore_same_hitbox"
@@ -81,4 +102,4 @@ func _process(delta: float) -> void:
 	
 	# Only detect collisions if is to ignore the same hitbox
 	if not ignore_same_hitbox:
-		detect_hurtboxes()
+		apply_hitboxes()

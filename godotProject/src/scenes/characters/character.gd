@@ -6,6 +6,7 @@ class_name Player
 @onready var frame_collider = $FrameCollider
 @onready var state_machines = $StateMachines
 @onready var input_buffer: InputBuffer = $InputBuffer
+@onready var character_physics: CharacterPhysics = $CharacterPhysics
 
 ### --- Consts ---
 const FOWARD_SPEED := 150.0
@@ -84,11 +85,16 @@ func _on_sprite_animation_frame_changed() -> void:
 ## --- Damage ---
 func take_damage(value:float, knockback:float, scale_start:float):
 	health -= value
+	# Apply knockback to opposite side
+	character_physics.apply_knockback(knockback, get_facing_direction_vector() * -1)
 
 
 # Other
 func get_facing_direction() -> int:
 	return -1 if sprite_animation.flip_h else 1
+
+func get_facing_direction_vector() -> Vector2:
+	return Vector2.LEFT if sprite_animation.flip_h else Vector2.RIGHT
 	
 func get_frame_data_by_name(frame_data_name: String) -> Dictionary:
 	var frame_data_filter: Array = frame_data.filter(func(fd): return fd.name == frame_data_name)

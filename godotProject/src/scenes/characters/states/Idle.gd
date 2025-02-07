@@ -20,10 +20,12 @@ func update(_delta):
 	
 	# Ignore horizontal inputs if crouching
 	if vertical_state_machine.curr_state.enum_name == CharacterStates.VERTICAL_STATES.CROUCH:
+		player.move_and_slide()
 		return
 	
 	# Ignore horizontal inputs if attacking
 	if condition_state_machine.curr_state.enum_name == CharacterStates.CONDITIONS.ATTACKING:
+		player.move_and_slide()
 		return
 
 	# Check dash
@@ -33,12 +35,18 @@ func update(_delta):
 	
 	# Check walking
 	var direction = Input.get_axis(player.id + "left", player.id + "right")
-	if direction == 0: return
+	if direction == 0: 
+		if player.id == "p1":
+			pass
+			#print(player.velocity)
+		player.move_and_slide()
+		return
 	if direction == player.get_facing_direction():
 		go_to_state(CharacterStates.HORIZONTAL_STATES.MOVEFOWARD)
 	else:
 		go_to_state(CharacterStates.HORIZONTAL_STATES.MOVEBACKWARD)
 	
+
 	# Check attacks
 	
 
