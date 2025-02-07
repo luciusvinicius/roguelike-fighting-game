@@ -16,6 +16,19 @@ func enter(args):
 	attack_animation = args[0]
 
 func update(_delta):
+	## Check for cancels
+	var hit_cancels := player.hit_cancels
+	
+	# Attack cancels
+	var attack = input_buffer.get_attack()
+	if input_buffer.get_attack() in hit_cancels:
+		# If cancelled, restart animation and reset cancels
+		player.reset_animation()
+		attack_animation = attack
+		input_buffer.remove_attack()
+		player.reset_cancels()
+		
+	# Play regular animation if not canceled
 	player.play_animation(attack_animation, 2)
 
 

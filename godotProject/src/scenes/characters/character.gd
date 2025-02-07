@@ -31,9 +31,9 @@ var blocking = [] # ["low"], ["high"], ["low", "high"]?
 var frame_data
 var current_animation_priority = 0
 
-# Pause
-var is_paused := false
-var frames_paused := 0
+# Cancels
+var hit_cancels := [] # ["dash", "5A", etc...]. Used in conditions
+var whiff_cancels := [] # Samething, but on whiff
 
 ## --- Logic ---
 
@@ -76,6 +76,10 @@ func stop_animation() -> void:
 	sprite_animation.stop()
 	sprite_animation.frame = current_frame
 
+func reset_animation() -> void:
+	"""Plays same animation from the beginning. (useful for cancels)"""
+	sprite_animation.frame = 0
+
 func reset_animation_priority() -> void:
 	current_animation_priority = 0
 
@@ -103,6 +107,11 @@ func take_damage(value:float, knockback:float, scale_start:float):
 
 
 # Other
+func reset_cancels() -> void:
+	"""Emptys 'hit_cancels' and 'whiff_cancels' arrays."""
+	hit_cancels = []
+	whiff_cancels = []
+
 func get_facing_direction() -> int:
 	return -1 if sprite_animation.flip_h else 1
 

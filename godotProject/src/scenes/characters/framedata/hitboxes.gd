@@ -60,6 +60,9 @@ func apply_hitboxes() -> void:
 				# Apply hit
 				enemy_player.take_damage(damage, knockback, scale_start)
 				ignore_same_hitbox = true
+				
+				# Add cancels
+				player.hit_cancels = framedata.cancels.hit
 				return # Avoid multiple hits in a single frame
 	
 	for e_hitbox in enemy_hitboxes.get_children():

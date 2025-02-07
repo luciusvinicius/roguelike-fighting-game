@@ -99,6 +99,7 @@ func get_attack() -> String:
 		if attack_action.size() > 0:
 			selected_attack_action = attack_action[0].to_upper()
 			selected_action = input.actions
+			break
 	
 	# If there are no attacks, then it doesn't matter if the player is crouched or not.
 	if selected_attack_action == "": return ""
@@ -108,6 +109,18 @@ func get_attack() -> String:
 		return "2%s" % selected_attack_action
 	return "5%s" % selected_attack_action
 
+func remove_attack():
+	"""Remove the first attack that appears on the Action Buffer"""
+	# TODO: Talvez alterar de acordo com a prioridade
+	
+	# Identify and remove the FIRST attack that appears.
+	var input_idx = 0
+	for input in action_buffer:
+		var attack_action = input.actions.filter(func(act): return act in ATTACK_ACTIONS)
+		if attack_action.size() > 0:
+			action_buffer.remove_at(input_idx)
+			return
+		input_idx += 1
 
 ## --- Internal Logic ---
 func _delete_previous_buffers(buffer: Array, frame_limit: int) -> void:

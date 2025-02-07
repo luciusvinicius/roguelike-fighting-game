@@ -11,6 +11,10 @@ func _ready():
 	enum_name = CharacterStates.CONDITIONS.NOTHING
 	#input_buffer = player.input_buffer
 
+func enter(_args):
+	# Reset hit or whiff cancels
+	player.reset_cancels()
+
 #func enter(_args):
 	#var vertical_state = vertical_state_machine.curr_state
 	#if vertical_state and vertical_state.enum_name != CharacterStates.VERTICAL_STATES.NEUTRAL: return
@@ -29,7 +33,9 @@ func update(_delta):
 		if vertical_state_machine.curr_state.enum_name == CharacterStates.VERTICAL_STATES.JUMP:
 			# TODO: fazer algo do tipo adicionar um "j" no início. Tomar cuidado pois pode haver "2A"
 			pass
-		# TODO: Mudar estado para "Attacking"
+		
+		# Remove attack from the buffer
+		input_buffer.remove_attack()
 		# Go to attacking state with given animation
 		go_to_state(CharacterStates.CONDITIONS.ATTACKING, [attack])
 
