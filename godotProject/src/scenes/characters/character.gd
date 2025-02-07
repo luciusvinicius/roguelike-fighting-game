@@ -29,8 +29,11 @@ var health = 100.0
 var char_name = "Ciel"
 var blocking = [] # ["low"], ["high"], ["low", "high"]?
 var frame_data
-
 var current_animation_priority = 0
+
+# Pause
+var is_paused := false
+var frames_paused := 0
 
 ## --- Logic ---
 
@@ -87,6 +90,16 @@ func take_damage(value:float, knockback:float, scale_start:float):
 	health -= value
 	# Apply knockback to opposite side
 	character_physics.apply_knockback(knockback, get_facing_direction_vector() * -1)
+
+
+## --- Pause ---
+#func pause(n_frames: int) -> void:
+	#"Pauses the animation and physics on the current frame for an amount of frames."
+	#var time = n_frames * 60/3600 # In frames
+	#var timer: Timer = $PauseTimer
+	#timer.wait_time = time
+	#timer.start()
+	#get_tree().paused = true
 
 
 # Other

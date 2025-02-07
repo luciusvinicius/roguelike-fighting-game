@@ -65,8 +65,6 @@ func apply_hitboxes() -> void:
 	for e_hitbox in enemy_hitboxes.get_children():
 		for hitbox in get_children():
 			if are_intersecting(hitbox as CollisionShape2D, e_hitbox as CollisionShape2D):
-				# TODO: Apply Clash
-				
 				return # Avoid multiple hits in a single frame
 		
 

@@ -17,10 +17,15 @@ func apply_knockback(intensity: float, direction: Vector2):
 	velocity_momentum += intensity * direction * 2.5
 	momentum_slowdown_rate = velocity_momentum.x * 4
 	player.velocity += velocity_momentum
+	var pre_velocity = player.velocity # Used when in the corner.
+	player.move_and_slide()
+	var post_velocity = player.velocity
+	
+	# If in corner, apply knockback on enemy
+	if pre_velocity != post_velocity:
+		player.enemy.character_physics.apply_knockback(intensity, direction * -1)
 
 func _physics_process(delta: float) -> void:
-	
-	#print(player.velocity)
 	var player_direction = player.get_facing_direction() * -1
 	velocity_momentum = velocity_momentum.move_toward(Vector2.ZERO, delta * momentum_slowdown_rate * player_direction)
 	player.velocity = player.velocity.move_toward(Vector2.ZERO, delta * momentum_slowdown_rate * player_direction)

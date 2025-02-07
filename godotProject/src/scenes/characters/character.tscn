@@ -698,6 +698,7 @@ shape = SubResource("RectangleShape2D_bajp1")
 [node name="FrameCollider" parent="." instance=ExtResource("1_57dbs")]
 
 [node name="InputBuffer" parent="." instance=ExtResource("142_3o11h")]
+process_mode = 3
 
 [node name="StateMachines" type="Node" parent="."]
 
