@@ -1,4 +1,4 @@
-[gd_scene load_steps=149 format=3 uid="uid://gcdaaahqu8oi"]
+[gd_scene load_steps=159 format=3 uid="uid://gcdaaahqu8oi"]
 
 [ext_resource type="PackedScene" uid="uid://co46uyfb46a6m" path="res://src/scenes/characters/frame_collider.tscn" id="1_57dbs"]
 [ext_resource type="Script" path="res://src/scenes/characters/character.gd" id="1_tv5vm"]
@@ -38,34 +38,44 @@
 [ext_resource type="Texture2D" uid="uid://dwoxbi7al54vv" path="res://assets/imgs/characters/ciel/fdash_startup/cie13_004.png" id="8_pyhlf"]
 [ext_resource type="Texture2D" uid="uid://c7mejc4tlebt2" path="res://assets/imgs/characters/ciel/backdash/cie14_007.png" id="9_b04qu"]
 [ext_resource type="Texture2D" uid="uid://bexh3vl86ac3m" path="res://assets/imgs/characters/ciel/fdash_startup/cie13_005.png" id="9_ei5yh"]
+[ext_resource type="Texture2D" uid="uid://dpjwfp6t4i2ni" path="res://assets/imgs/characters/ciel/5B/cie01_007.png" id="9_rfujq"]
 [ext_resource type="Texture2D" uid="uid://bybojgreu7n8h" path="res://assets/imgs/characters/ciel/idle/cie00_006.png" id="9_vkp50"]
 [ext_resource type="Texture2D" uid="uid://dkpx8awabgal4" path="res://assets/imgs/characters/ciel/fdash_break/cie13_015.png" id="9_wij7s"]
+[ext_resource type="Texture2D" uid="uid://c6fs7lt46f3o0" path="res://assets/imgs/characters/ciel/5B/cie01_008.png" id="10_53msb"]
 [ext_resource type="Texture2D" uid="uid://bn5xn0kqjfmqo" path="res://assets/imgs/characters/ciel/backdash/cie14_008.png" id="10_a4yem"]
 [ext_resource type="Texture2D" uid="uid://y4g0kh0xfljb" path="res://assets/imgs/characters/ciel/fdash_break/cie13_016.png" id="10_lyd0t"]
 [ext_resource type="Texture2D" uid="uid://dcgxxgfutf5qq" path="res://assets/imgs/characters/ciel/idle/cie00_007.png" id="10_mcn2p"]
 [ext_resource type="Texture2D" uid="uid://caoanuohqtiq7" path="res://assets/imgs/characters/ciel/idle/cie00_008.png" id="11_0i0il"]
 [ext_resource type="Texture2D" uid="uid://kkp6mr2v3v5u" path="res://assets/imgs/characters/ciel/fdash_break/cie13_017.png" id="11_qj8nd"]
+[ext_resource type="Texture2D" uid="uid://so75h7acix12" path="res://assets/imgs/characters/ciel/5B/cie01_009.png" id="11_tktwx"]
 [ext_resource type="Texture2D" uid="uid://csuv37qckt0da" path="res://assets/imgs/characters/ciel/backdash/cie14_009.png" id="11_vl6c8"]
+[ext_resource type="Texture2D" uid="uid://cu1eclnyetkml" path="res://assets/imgs/characters/ciel/5B/cie01_010.png" id="12_6qamm"]
 [ext_resource type="Texture2D" uid="uid://bpkbfhxx5tinc" path="res://assets/imgs/characters/ciel/backdash/cie14_010.png" id="12_7f5kg"]
 [ext_resource type="Texture2D" uid="uid://d3j10r5qakvkr" path="res://assets/imgs/characters/ciel/idle/cie00_009.png" id="12_cs05n"]
 [ext_resource type="Texture2D" uid="uid://dqcoe286igw6i" path="res://assets/imgs/characters/ciel/backdash/cie14_011.png" id="13_ajy0s"]
+[ext_resource type="Texture2D" uid="uid://c7o0dr3bm4y16" path="res://assets/imgs/characters/ciel/5B/cie01_011.png" id="13_h1dhf"]
 [ext_resource type="Texture2D" uid="uid://ppkk7aql4sxt" path="res://assets/imgs/characters/ciel/idle/cie00_010.png" id="13_v3f7m"]
 [ext_resource type="Texture2D" uid="uid://b4y44556pfb8w" path="res://assets/imgs/characters/ciel/idle/cie00_011.png" id="14_03mxk"]
 [ext_resource type="Texture2D" uid="uid://blgg5783kigwx" path="res://assets/imgs/characters/ciel/move_foward/cie26_000.png" id="14_25u86"]
+[ext_resource type="Texture2D" uid="uid://ji1aoxms2th7" path="res://assets/imgs/characters/ciel/5B/cie01_012.png" id="14_jm41j"]
 [ext_resource type="Texture2D" uid="uid://c8paqbbp3qxmk" path="res://assets/imgs/characters/ciel/move_backward/cie27_000.png" id="14_jnmii"]
 [ext_resource type="Texture2D" uid="uid://ok4ftl1p5g4c" path="res://assets/imgs/characters/ciel/backdash/cie14_012.png" id="14_u2if1"]
 [ext_resource type="Texture2D" uid="uid://bim64uso31tvj" path="res://assets/imgs/characters/ciel/move_backward/cie27_001.png" id="15_1k7iu"]
 [ext_resource type="PackedScene" uid="uid://buaq56atgrfd2" path="res://src/scenes/states/state_machine.tscn" id="15_eknoy"]
 [ext_resource type="Texture2D" uid="uid://pjfqfowxlvlj" path="res://assets/imgs/characters/ciel/move_foward/cie26_001.png" id="15_jdkal"]
 [ext_resource type="Texture2D" uid="uid://dblr2grobnhm8" path="res://assets/imgs/characters/ciel/backdash/cie14_013.png" id="15_uki6w"]
+[ext_resource type="Texture2D" uid="uid://netesvxyhnd" path="res://assets/imgs/characters/ciel/5B/cie01_013.png" id="15_v0gih"]
 [ext_resource type="Texture2D" uid="uid://dad0xj13kil2i" path="res://assets/imgs/characters/ciel/move_foward/cie26_002.png" id="16_5dpom"]
 [ext_resource type="Script" path="res://src/scenes/characters/states/Idle.gd" id="16_5eclj"]
 [ext_resource type="Texture2D" uid="uid://du2pjdkcuqtod" path="res://assets/imgs/characters/ciel/backdash/cie14_014.png" id="16_ggt3o"]
+[ext_resource type="Texture2D" uid="uid://b71jafod0hq4d" path="res://assets/imgs/characters/ciel/5B/cie01_014.png" id="16_ij1tl"]
 [ext_resource type="Texture2D" uid="uid://ct2ay4lepe5ba" path="res://assets/imgs/characters/ciel/move_backward/cie27_002.png" id="16_qviep"]
 [ext_resource type="Texture2D" uid="uid://d0stjx4jgh4lc" path="res://assets/imgs/characters/ciel/move_foward/cie26_003.png" id="17_4fc88"]
+[ext_resource type="Texture2D" uid="uid://wtirxylgj2xv" path="res://assets/imgs/characters/ciel/5B/cie01_015.png" id="17_gtnvr"]
 [ext_resource type="Texture2D" uid="uid://caoc6klgsuw8e" path="res://assets/imgs/characters/ciel/move_backward/cie27_003.png" id="17_ntx7h"]
 [ext_resource type="Texture2D" uid="uid://h8lq2fr1xs36" path="res://assets/imgs/characters/ciel/backdash/cie14_015.png" id="17_t3in1"]
 [ext_resource type="Script" path="res://src/scenes/characters/states/MoveFoward.gd" id="17_v12v5"]
+[ext_resource type="Texture2D" uid="uid://dbhymggv7xhl7" path="res://assets/imgs/characters/ciel/5B/cie01_016.png" id="18_glvu2"]
 [ext_resource type="Texture2D" uid="uid://dkd4fdqhavit7" path="res://assets/imgs/characters/ciel/backdash/cie14_016.png" id="18_miasr"]
 [ext_resource type="Texture2D" uid="uid://cm5xpfvh4wajb" path="res://assets/imgs/characters/ciel/move_backward/cie27_004.png" id="18_p10en"]
 [ext_resource type="Texture2D" uid="uid://bmpd4xbahxt4e" path="res://assets/imgs/characters/ciel/move_foward/cie26_004.png" id="18_x066u"]
@@ -173,6 +183,41 @@ animations = [{
 }],
 "loop": true,
 "name": &"5A",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_rfujq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_53msb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_tktwx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_6qamm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_h1dhf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_jm41j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_v0gih")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_ij1tl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_gtnvr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_glvu2")
+}],
+"loop": true,
+"name": &"5B",
 "speed": 24.0
 }, {
 "frames": [{
@@ -689,7 +734,7 @@ script = ExtResource("1_tv5vm")
 
 [node name="SpriteAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gopkg")
-animation = &"5A"
+animation = &"5B"
 
 [node name="GroundDetector" type="CollisionShape2D" parent="."]
 position = Vector2(0, 88)

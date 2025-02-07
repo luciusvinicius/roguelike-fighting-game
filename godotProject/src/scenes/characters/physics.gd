@@ -26,6 +26,6 @@ func apply_knockback(intensity: float, direction: Vector2):
 		player.enemy.character_physics.apply_knockback(intensity, direction * -1)
 
 func _physics_process(delta: float) -> void:
-	var player_direction = player.get_facing_direction() * -1
-	velocity_momentum = velocity_momentum.move_toward(Vector2.ZERO, delta * momentum_slowdown_rate * player_direction)
-	player.velocity = player.velocity.move_toward(Vector2.ZERO, delta * momentum_slowdown_rate * player_direction)
+	var step_direction = 1 if player.velocity.x > 0 else -1
+	velocity_momentum = velocity_momentum.move_toward(Vector2.ZERO, delta * momentum_slowdown_rate * step_direction)
+	player.velocity = player.velocity.move_toward(Vector2.ZERO, delta * momentum_slowdown_rate * step_direction)

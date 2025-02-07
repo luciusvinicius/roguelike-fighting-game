@@ -58,9 +58,9 @@ func load_frame_data() -> Variant:
 # Animations
 func play_animation(animation_name: String, priority: int) -> Dictionary:
 	"""Given a certain priority, play animation. Returns the framedata, if used."""
-	#print("Play animation: ", animation_name, " / Priority: ", priority)
+	print("Play animation: ", animation_name, " / Priority: ", priority)
 	if priority < current_animation_priority: return {}
-	#print("Animation Played")
+	print("Animation Played")
 	sprite_animation.play(animation_name)
 	current_animation_priority = priority
 	

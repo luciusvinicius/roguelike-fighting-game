@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wtirxylgj2xv"
-path="res://.godot/imported/cie01_015.png-0d5e9eeeb4e1a695970f9612d450dc7c.ctex"
+uid="uid://cu1eclnyetkml"
+path="res://.godot/imported/cie01_010.png-7b6875f3c5c2bc00b2395f6c4fd4dd46.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/imgs/characters/ciel/raw_file/ciel/cie01_015.png"
-dest_files=["res://.godot/imported/cie01_015.png-0d5e9eeeb4e1a695970f9612d450dc7c.ctex"]
+source_file="res://assets/imgs/characters/ciel/5B/cie01_010.png"
+dest_files=["res://.godot/imported/cie01_010.png-7b6875f3c5c2bc00b2395f6c4fd4dd46.ctex"]
 
 [params]
 
