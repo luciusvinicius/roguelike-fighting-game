@@ -75,9 +75,9 @@ func load_collisions(frame_data : Dictionary, ignore_collision_tab := false):
 	var animation_frame = char_sprite_animation.frame
 	char_frame_collider.reset_collision()
 	if "hitboxes" in collision:
-		char_frame_collider.create_hitboxes(collision.hitboxes[animation_frame])
+		char_frame_collider.create_hitboxes(collision.hitboxes[animation_frame], 1) # 1 = looking to the right
 	if "hurtboxes" in collision:
-		char_frame_collider.create_hurtboxes(collision.hurtboxes[animation_frame])
+		char_frame_collider.create_hurtboxes(collision.hurtboxes[animation_frame], 1)
 	
 	# Setup signal for mouse hover collision (not used)
 	var hurtboxes = char_frame_collider.get_node("Hurtboxes")

@@ -6,7 +6,7 @@ signal punish
 
 ## --- Nodes ---
 @onready var hurtboxes = $Hurtboxes
-@onready var hitboxes = $Hitboxes
+@onready var hitboxes : Hitboxes = $Hitboxes
 
 ## --- Consts ---
 const HURTBOX_COLOR = "3ca1406b"
@@ -32,6 +32,9 @@ func setup_collisions(fd: Variant, idx: int, direction := 1):
 		create_hurtboxes(collision["hurtboxes"][idx], direction)
 	if "hitboxes" in collision:
 		create_hitboxes(collision["hitboxes"][idx], direction)
+		# Setup attack properties
+		hitboxes.setup_attack(fd)
+		
 
 func reset_collision() -> void:
 	"""Remove all hitboxes and hurtboxes."""

@@ -126,6 +126,10 @@ p2dash={
 "events": []
 }
 
+[layer_names]
+
+2d_render/layer_2="hurtboxes/hitboxes"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

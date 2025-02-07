@@ -21,8 +21,10 @@ const GRAVITY := 980.0 * 2
 
 ## --- Vars ---
 @export_enum("Left:-1", "Right:1") var start_facing_direction = 1
+@export var enemy: Player
 @export var id := "p1"
 
+var health = 100.0
 var char_name = "Ciel"
 var blocking = [] # ["low"], ["high"], ["low", "high"]?
 var frame_data
@@ -78,6 +80,11 @@ func _on_sprite_animation_frame_changed() -> void:
 	var animation_name = sprite_animation.animation
 	var animation_frame_data = get_frame_data_by_name(animation_name)
 	frame_collider.setup_collisions(animation_frame_data, sprite_animation.frame, get_facing_direction())
+
+## --- Damage ---
+func take_damage(value:float, knockback:float, scale_start:float):
+	health -= value
+
 
 # Other
 func get_facing_direction() -> int:

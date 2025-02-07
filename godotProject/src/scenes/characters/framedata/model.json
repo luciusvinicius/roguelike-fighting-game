@@ -9,7 +9,7 @@
 	{
 		"name": "template (unused)",
 		"sprite_animation": "5A",
-		"hit": "unblockable",
+		"hit": "unblockable/overhead/low",
 		"meter_generation": 5,
 		"knockback": 10,
 		"flavor_frames": 5,
