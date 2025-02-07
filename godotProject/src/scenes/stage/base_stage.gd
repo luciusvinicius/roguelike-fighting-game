@@ -38,21 +38,25 @@ func update_camera():
 	camera.zoom = Vector2.ONE * new_zoom
 	
 	# Move Camera to the middle
+	# (not applied yet, bc this is for the walls calculation mas a camera muda quando é no canto)
 	var new_position = (player1.position + player2.position)/2
-	camera.position = new_position
 	
 	# Move Walls to camera limit
-	var viewport_size = get_viewport().size
-	# Ratio the viewport to the zoom
+	var viewport_size = get_viewport_rect().size
+	# Ratio the viewport to the zoom and adapt positions
 	var adjusted_viewport_size = viewport_size / new_zoom
-	var left_wall_pos = camera.position.x - adjusted_viewport_size.x + 275
-	print("----------")
-	print("Camera Position: ", camera.position.x)
-	print("Adjusted Viewport: ", adjusted_viewport_size.x)
-	print("Left Wall Position: ", left_wall_pos)
-	var right_wall_pos = camera.position.x + adjusted_viewport_size.x - 275
+	var left_wall_pos = new_position.x - adjusted_viewport_size.x + 275
+	#print("----------")
+	#print("Camera Position: ", new_position.x)
+	#print("Adjusted Viewport: ", adjusted_viewport_size.x)
+	#print("Left Wall Position: ", left_wall_pos)
+	var right_wall_pos = new_position.x + adjusted_viewport_size.x - 275
 	left_limit_wall.position.x = clamp(left_wall_pos, HORIZONTAL_MIMINUM_DISTANCE_LIMIT, HORIZONTAL_MAXIMUM_DISTANCE_LIMIT)
 	right_limit_wall.position.x = clamp(right_wall_pos, HORIZONTAL_MIMINUM_DISTANCE_LIMIT, HORIZONTAL_MAXIMUM_DISTANCE_LIMIT)
+	
+	# Apply camera's new position
+	# TODO: camera no canto não passa dos limites da parede. Calcular.
+	camera.position = new_position
 
 func normalize_distance(distance: Vector2, mi:float, ma:float, mi_old := 0.0, ma_old := HORIZONTAL_MAXIMUM_CAMERA_DISTANCE) -> Vector2:
 	"""Given a distance, normalize between the values to the camera limits."""
